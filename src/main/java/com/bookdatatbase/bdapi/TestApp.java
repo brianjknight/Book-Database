@@ -22,7 +22,7 @@ public class TestApp {
         String darkFlamesRisingJson = gson.toJson(darkFlamesRising);
         System.out.println("bookToJson:");
         System.out.println(darkFlamesRisingJson);
-        
+
     }
 
 }
