@@ -1,6 +1,7 @@
 package com.bookdatatbase.bdapi.entities;
 
 import com.bookdatatbase.bdapi.models.Role;
+import com.bookdatatbase.bdapi.models.Shelf;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
