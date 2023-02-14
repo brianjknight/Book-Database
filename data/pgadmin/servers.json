@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "pgBD-api",
+      "Group": "Dev",
+      "Port": 5432,
+      "Username": "docker",
+      "Password": "docker",
+      "Host": "pgBD-api",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "postgres"
+    }
+  }
+}
