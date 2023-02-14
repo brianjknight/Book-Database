@@ -35,26 +35,26 @@ Working on configuration for Postgres and Docker. It currently runs into an erro
 ### Week 2
 * 2/13/23  
   Researched JSON objects and libraries.
-    ![](images/import-errors-image.png)
+    
   * Gson is easy to use, standardized, efficient, optimized, and does not require libraries apart from JDK.
   * Added the Gson dependency in the gradle build.
   * Successfully deserialized a JSON string to a Book object
 
+
+* 2/14/23  
   Imports stopped working in this project.
-  * Appears to have been after adding the Gson dependency.
-  * What changed? 
-  * I opened previous projects which do not have this issue.
-  * How do imports work?  
-  * Can I store a jar file locally to fix the import?  
-  * Is Gradle not working properly? 
-    * The module dependencies are different than past projects with same imports.
+    ![](images/import-errors-image.png)
+  * I spent hours trying to figure this out with no solution. It seems to be related to either an IDE/IntelliJ or Gradle issue.
+    * Older projects were unaffected.
+    * I tried invalidating caches and restarting IntelliJ
+    * I tried deleting the .idea and build files to rebuild the project.
+    * Another recommendation was to uninstall/reinstall IntelliJ. (Did not do this.)
+  * After starting a new Gradle project with Spring Initializr and copying the packages/files, the imports are working agian.
 
 
 
 ## TODO
 * Create architecture diagram 
-* Use Spring Initializer to create the new project.  
-* Save the README, Design Doc, and accomplishment tracking md files  
 * Figure out how to seed the database from the JSON files  
 * create the data model classes for book, author, and genres  
 * create the JPA repos  
