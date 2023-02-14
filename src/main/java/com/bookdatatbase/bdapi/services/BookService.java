@@ -1,6 +1,7 @@
 package com.bookdatatbase.bdapi.services;
 
 import com.bookdatatbase.bdapi.entities.Book;
+import com.bookdatatbase.bdapi.exceptions.BookNotFoundException;
 import com.bookdatatbase.bdapi.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
