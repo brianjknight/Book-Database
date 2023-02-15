@@ -8,6 +8,8 @@ public class Shelf {
     private String count;
     private String name;
 
+    public Shelf() {}
+
     public Shelf(String count, String name) {
         this.count = count;
         this.name = name;
