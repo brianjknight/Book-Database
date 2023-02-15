@@ -61,7 +61,7 @@ public class Book {
     @ElementCollection
     private List<String> similarBooks;
 
-    @Column
+    @Column(length = 10000)
     private String description;
 
     @Column
