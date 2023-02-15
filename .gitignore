@@ -39,3 +39,5 @@ out/
 application-dev.properties
 data/pg
 resources/application.yaml
+testBook.json
+data/book-data
