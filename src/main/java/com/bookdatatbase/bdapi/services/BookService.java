@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -20,8 +21,8 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public ResponseEntity<Book> findBookByIsbn(String isbn) {
-        return ResponseEntity.ok(this.getBookByIsbn(isbn));
+    public ResponseEntity<Book> findBookById(UUID id) {
+        return ResponseEntity.ok(this.getBookById(id));
     }
 
     public ResponseEntity<Page<Book>>  findAllBooksPaginated(int offset, int limit) {
@@ -32,11 +33,11 @@ public class BookService {
         return ResponseEntity.ok(bookRepository.save(book));
     }
 
-    public ResponseEntity<Book> updateBookByIsbn(String isbn, Book book) {
+    public ResponseEntity<Book> updateBookById(UUID id, Book book) {
         if (Objects.isNull(book)) {
             throw new IllegalArgumentException("Book input param cannot be null");
         }
-        Book bookToUpdate = this.getBookByIsbn(isbn);
+        Book bookToUpdate = this.getBookById(id);
 
         bookToUpdate.setIsbn(book.getIsbn());
         bookToUpdate.setTextReviewsCount(book.getTextReviewsCount());
@@ -71,20 +72,20 @@ public class BookService {
         return this.saveBook(bookToUpdate);
     }
 
-    public ResponseEntity<String> deleteBookByIsbn(String isbn) {
-        Book bookToDelete = this.getBookByIsbn(isbn);
+    public ResponseEntity<String> deleteBookByIsbn(UUID id) {
+        Book bookToDelete = this.getBookById(id);
         bookRepository.delete(bookToDelete);
 
-        return ResponseEntity.ok("Successfully deleted book with ISBN: " + isbn);
+        return ResponseEntity.ok("Successfully deleted book with ISBN: " + id);
     }
 
     public long count() {
         return bookRepository.count();
     }
 
-    private Book getBookByIsbn(String isbn) {
-        return bookRepository.findById(isbn)
-                .orElseThrow(() -> new BookNotFoundException(isbn));
+    private Book getBookById(UUID id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id.toString()));
     }
 
 }

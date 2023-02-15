@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/books")
@@ -24,8 +25,8 @@ public class BookController {
     BookService bookService;
 
     @GetMapping("{isbn}")
-    public ResponseEntity<Book> findBookByIsbn(@PathVariable String isbn) {
-        return bookService.findBookByIsbn(isbn);
+    public ResponseEntity<Book> findBookById(@PathVariable UUID id) {
+        return bookService.findBookById(id);
     }
 
     /**
@@ -47,16 +48,16 @@ public class BookController {
     }
 
     @PutMapping("{isbn}")
-    public ResponseEntity<Book> updateBookByIsbn(@PathVariable String isbn, @RequestBody Book book) {
+    public ResponseEntity<Book> updateBookByIsbn(@PathVariable UUID id, @RequestBody Book book) {
         if(Objects.isNull(book)) {
             throw new IllegalArgumentException("Book input cannot be null.");
         }
-        return bookService.updateBookByIsbn(isbn, book);
+        return bookService.updateBookById(id, book);
     }
 
     @DeleteMapping("{isbn}")
-    public ResponseEntity<String> deleteBookByIsbn(@PathVariable String isbn) {
-        return bookService.deleteBookByIsbn(isbn);
+    public ResponseEntity<String> deleteBookByIsbn(@PathVariable UUID id) {
+        return bookService.deleteBookByIsbn(id);
     }
 
 }
