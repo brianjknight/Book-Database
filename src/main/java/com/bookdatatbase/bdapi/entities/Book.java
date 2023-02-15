@@ -14,13 +14,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false)
+    @Column(insertable = false, updatable = false, nullable = false)
+    private UUID id;
+
+    @Column
     private String isbn;
 
     @Column(name = "text_reviews_count")
@@ -114,6 +118,10 @@ public class Book {
     private String titleWithoutSeries;
 
     public Book() {}
+
+    public UUID getId() {
+        return id;
+    }
 
     public String getIsbn() {
         return isbn;
@@ -352,18 +360,19 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(isbn, book.isbn) && Objects.equals(textReviewsCount, book.textReviewsCount) && Objects.equals(series, book.series) && Objects.equals(countryCode, book.countryCode) && Objects.equals(languageCode, book.languageCode) && Objects.equals(popularShelves, book.popularShelves) && Objects.equals(asin, book.asin) && Objects.equals(isEbook, book.isEbook) && Objects.equals(averageRating, book.averageRating) && Objects.equals(kindleAsin, book.kindleAsin) && Objects.equals(similarBooks, book.similarBooks) && Objects.equals(description, book.description) && Objects.equals(format, book.format) && Objects.equals(link, book.link) && Objects.equals(authors, book.authors) && Objects.equals(publisher, book.publisher) && Objects.equals(numPages, book.numPages) && Objects.equals(publicationDay, book.publicationDay) && Objects.equals(isbn13, book.isbn13) && Objects.equals(publicationMonth, book.publicationMonth) && Objects.equals(edition_information, book.edition_information) && Objects.equals(publicationYear, book.publicationYear) && Objects.equals(url, book.url) && Objects.equals(imageUrl, book.imageUrl) && Objects.equals(bookId, book.bookId) && Objects.equals(ratingsCount, book.ratingsCount) && Objects.equals(workId, book.workId) && Objects.equals(title, book.title) && Objects.equals(titleWithoutSeries, book.titleWithoutSeries);
+        return Objects.equals(id, book.id) && Objects.equals(isbn, book.isbn) && Objects.equals(textReviewsCount, book.textReviewsCount) && Objects.equals(series, book.series) && Objects.equals(countryCode, book.countryCode) && Objects.equals(languageCode, book.languageCode) && Objects.equals(popularShelves, book.popularShelves) && Objects.equals(asin, book.asin) && Objects.equals(isEbook, book.isEbook) && Objects.equals(averageRating, book.averageRating) && Objects.equals(kindleAsin, book.kindleAsin) && Objects.equals(similarBooks, book.similarBooks) && Objects.equals(description, book.description) && Objects.equals(format, book.format) && Objects.equals(link, book.link) && Objects.equals(authors, book.authors) && Objects.equals(publisher, book.publisher) && Objects.equals(numPages, book.numPages) && Objects.equals(publicationDay, book.publicationDay) && Objects.equals(isbn13, book.isbn13) && Objects.equals(publicationMonth, book.publicationMonth) && Objects.equals(edition_information, book.edition_information) && Objects.equals(publicationYear, book.publicationYear) && Objects.equals(url, book.url) && Objects.equals(imageUrl, book.imageUrl) && Objects.equals(bookId, book.bookId) && Objects.equals(ratingsCount, book.ratingsCount) && Objects.equals(workId, book.workId) && Objects.equals(title, book.title) && Objects.equals(titleWithoutSeries, book.titleWithoutSeries);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isbn, textReviewsCount, series, countryCode, languageCode, popularShelves, asin, isEbook, averageRating, kindleAsin, similarBooks, description, format, link, authors, publisher, numPages, publicationDay, isbn13, publicationMonth, edition_information, publicationYear, url, imageUrl, bookId, ratingsCount, workId, title, titleWithoutSeries);
+        return Objects.hash(id, isbn, textReviewsCount, series, countryCode, languageCode, popularShelves, asin, isEbook, averageRating, kindleAsin, similarBooks, description, format, link, authors, publisher, numPages, publicationDay, isbn13, publicationMonth, edition_information, publicationYear, url, imageUrl, bookId, ratingsCount, workId, title, titleWithoutSeries);
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "isbn='" + isbn + '\'' +
+                "id=" + id +
+                ", isbn='" + isbn + '\'' +
                 ", textReviewsCount='" + textReviewsCount + '\'' +
                 ", series=" + series +
                 ", countryCode='" + countryCode + '\'' +
