@@ -46,7 +46,7 @@ public class BookService {
         bookToUpdate.setLanguageCode(book.getLanguageCode());
         bookToUpdate.setPopularShelves(book.getPopularShelves());
         bookToUpdate.setAsin(book.getAsin());
-        bookToUpdate.setIsEbook(book.getIsEbook());
+        bookToUpdate.setIsEbook(book.isEbook());
         bookToUpdate.setAverageRating(book.getAverageRating());
         bookToUpdate.setKindleAsin(book.getKindleAsin());
         bookToUpdate.setSimilarBooks(book.getSimilarBooks());
@@ -59,7 +59,7 @@ public class BookService {
         bookToUpdate.setPublicationDay(book.getPublicationDay());
         bookToUpdate.setIsbn13(book.getIsbn13());
         bookToUpdate.setPublicationMonth(book.getPublicationMonth());
-        bookToUpdate.setEdition_information(book.getEdition_information());
+        bookToUpdate.setEditionInformation(book.getEditionInformation());
         bookToUpdate.setPublicationYear(book.getPublicationYear());
         bookToUpdate.setUrl(book.getUrl());
         bookToUpdate.setImageUrl(book.getImageUrl());

@@ -28,11 +28,11 @@ public class Book {
     private String isbn;
 
     @Column(name = "text_reviews_count")
-    private String textReviewsCount;
+    private Integer textReviewsCount;
 
     @Column
     @ElementCollection
-    private List<String> series;
+    private List<Integer> series;
 
     @Column(name = "country_code")
     private String countryCode;
@@ -49,17 +49,17 @@ public class Book {
     private String asin;
 
     @Column(name = "is_ebook")
-    private String isEbook;
+    private Boolean isEbook;
 
     @Column(name = "average_rating")
-    private String averageRating;
+    private Double averageRating;
 
     @Column(name = "kindle_asin")
     private String kindleAsin;
 
     @Column(name = "similar_books")
     @ElementCollection
-    private List<String> similarBooks;
+    private List<Integer> similarBooks;
 
     @Column(length = 10000)
     private String description;
@@ -79,22 +79,22 @@ public class Book {
     private String publisher;
 
     @Column(name = "num_pages")
-    private String numPages;
+    private Integer numPages;
 
     @Column(name = "publication_day")
-    private String publicationDay;
+    private Integer publicationDay;
 
     @Column
     private String isbn13;
 
     @Column(name = "publication_month")
-    private String publicationMonth;
+    private Integer publicationMonth;
 
-    @Column(name = "editionInformation")
-    private String edition_information;
+    @Column(name = "edition_information")
+    private String editionInformation;
 
     @Column(name = "publication_year")
-    private String publicationYear;
+    private Integer publicationYear;
 
     @Column
     private String url;
@@ -106,7 +106,7 @@ public class Book {
     private String bookId;
 
     @Column(name = "ratings_count")
-    private String ratingsCount;
+    private Integer ratingsCount;
 
     @Column(name = "work_id")
     private String workId;
@@ -131,19 +131,19 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getTextReviewsCount() {
+    public Integer getTextReviewsCount() {
         return textReviewsCount;
     }
 
-    public void setTextReviewsCount(String textReviewsCount) {
+    public void setTextReviewsCount(Integer textReviewsCount) {
         this.textReviewsCount = textReviewsCount;
     }
 
-    public List<String> getSeries() {
+    public List<Integer> getSeries() {
         return series;
     }
 
-    public void setSeries(List<String> series) {
+    public void setSeries(List<Integer> series) {
         this.series = series;
     }
 
@@ -179,19 +179,19 @@ public class Book {
         this.asin = asin;
     }
 
-    public String getIsEbook() {
+    public Boolean isEbook() {
         return isEbook;
     }
 
-    public void setIsEbook(String isEbook) {
+    public void setIsEbook(Boolean isEbook) {
         this.isEbook = isEbook;
     }
 
-    public String getAverageRating() {
+    public Double getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(String averageRating) {
+    public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
 
@@ -203,11 +203,11 @@ public class Book {
         this.kindleAsin = kindleAsin;
     }
 
-    public List<String> getSimilarBooks() {
+    public List<Integer> getSimilarBooks() {
         return similarBooks;
     }
 
-    public void setSimilarBooks(List<String> similarBooks) {
+    public void setSimilarBooks(List<Integer> similarBooks) {
         this.similarBooks = similarBooks;
     }
 
@@ -251,19 +251,19 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getNumPages() {
+    public Integer getNumPages() {
         return numPages;
     }
 
-    public void setNumPages(String numPages) {
+    public void setNumPages(Integer numPages) {
         this.numPages = numPages;
     }
 
-    public String getPublicationDay() {
+    public Integer getPublicationDay() {
         return publicationDay;
     }
 
-    public void setPublicationDay(String publicationDay) {
+    public void setPublicationDay(Integer publicationDay) {
         this.publicationDay = publicationDay;
     }
 
@@ -275,27 +275,27 @@ public class Book {
         this.isbn13 = isbn13;
     }
 
-    public String getPublicationMonth() {
+    public Integer getPublicationMonth() {
         return publicationMonth;
     }
 
-    public void setPublicationMonth(String publicationMonth) {
+    public void setPublicationMonth(Integer publicationMonth) {
         this.publicationMonth = publicationMonth;
     }
 
-    public String getEdition_information() {
-        return edition_information;
+    public String getEditionInformation() {
+        return editionInformation;
     }
 
-    public void setEdition_information(String edition_information) {
-        this.edition_information = edition_information;
+    public void setEditionInformation(String editionInformation) {
+        this.editionInformation = editionInformation;
     }
 
-    public String getPublicationYear() {
+    public Integer getPublicationYear() {
         return publicationYear;
     }
 
-    public void setPublicationYear(String publicationYear) {
+    public void setPublicationYear(Integer publicationYear) {
         this.publicationYear = publicationYear;
     }
 
@@ -323,11 +323,11 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public String getRatingsCount() {
+    public Integer getRatingsCount() {
         return ratingsCount;
     }
 
-    public void setRatingsCount(String ratingsCount) {
+    public void setRatingsCount(Integer ratingsCount) {
         this.ratingsCount = ratingsCount;
     }
 
@@ -360,12 +360,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(id, book.id) && Objects.equals(isbn, book.isbn) && Objects.equals(textReviewsCount, book.textReviewsCount) && Objects.equals(series, book.series) && Objects.equals(countryCode, book.countryCode) && Objects.equals(languageCode, book.languageCode) && Objects.equals(popularShelves, book.popularShelves) && Objects.equals(asin, book.asin) && Objects.equals(isEbook, book.isEbook) && Objects.equals(averageRating, book.averageRating) && Objects.equals(kindleAsin, book.kindleAsin) && Objects.equals(similarBooks, book.similarBooks) && Objects.equals(description, book.description) && Objects.equals(format, book.format) && Objects.equals(link, book.link) && Objects.equals(authors, book.authors) && Objects.equals(publisher, book.publisher) && Objects.equals(numPages, book.numPages) && Objects.equals(publicationDay, book.publicationDay) && Objects.equals(isbn13, book.isbn13) && Objects.equals(publicationMonth, book.publicationMonth) && Objects.equals(edition_information, book.edition_information) && Objects.equals(publicationYear, book.publicationYear) && Objects.equals(url, book.url) && Objects.equals(imageUrl, book.imageUrl) && Objects.equals(bookId, book.bookId) && Objects.equals(ratingsCount, book.ratingsCount) && Objects.equals(workId, book.workId) && Objects.equals(title, book.title) && Objects.equals(titleWithoutSeries, book.titleWithoutSeries);
+        return Objects.equals(id, book.id) && Objects.equals(isbn, book.isbn) && Objects.equals(textReviewsCount, book.textReviewsCount) && Objects.equals(series, book.series) && Objects.equals(countryCode, book.countryCode) && Objects.equals(languageCode, book.languageCode) && Objects.equals(popularShelves, book.popularShelves) && Objects.equals(asin, book.asin) && Objects.equals(isEbook, book.isEbook) && Objects.equals(averageRating, book.averageRating) && Objects.equals(kindleAsin, book.kindleAsin) && Objects.equals(similarBooks, book.similarBooks) && Objects.equals(description, book.description) && Objects.equals(format, book.format) && Objects.equals(link, book.link) && Objects.equals(authors, book.authors) && Objects.equals(publisher, book.publisher) && Objects.equals(numPages, book.numPages) && Objects.equals(publicationDay, book.publicationDay) && Objects.equals(isbn13, book.isbn13) && Objects.equals(publicationMonth, book.publicationMonth) && Objects.equals(editionInformation, book.editionInformation) && Objects.equals(publicationYear, book.publicationYear) && Objects.equals(url, book.url) && Objects.equals(imageUrl, book.imageUrl) && Objects.equals(bookId, book.bookId) && Objects.equals(ratingsCount, book.ratingsCount) && Objects.equals(workId, book.workId) && Objects.equals(title, book.title) && Objects.equals(titleWithoutSeries, book.titleWithoutSeries);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, isbn, textReviewsCount, series, countryCode, languageCode, popularShelves, asin, isEbook, averageRating, kindleAsin, similarBooks, description, format, link, authors, publisher, numPages, publicationDay, isbn13, publicationMonth, edition_information, publicationYear, url, imageUrl, bookId, ratingsCount, workId, title, titleWithoutSeries);
+        return Objects.hash(id, isbn, textReviewsCount, series, countryCode, languageCode, popularShelves, asin, isEbook, averageRating, kindleAsin, similarBooks, description, format, link, authors, publisher, numPages, publicationDay, isbn13, publicationMonth, editionInformation, publicationYear, url, imageUrl, bookId, ratingsCount, workId, title, titleWithoutSeries);
     }
 
     @Override
@@ -392,7 +392,7 @@ public class Book {
                 ", publicationDay='" + publicationDay + '\'' +
                 ", isbn13='" + isbn13 + '\'' +
                 ", publicationMonth='" + publicationMonth + '\'' +
-                ", edition_information='" + edition_information + '\'' +
+                ", edition_information='" + editionInformation + '\'' +
                 ", publicationYear='" + publicationYear + '\'' +
                 ", url='" + url + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
@@ -406,31 +406,31 @@ public class Book {
 
     public static final class BookBuilder {
         private String isbn;
-        private String textReviewsCount;
-        private List<String> series;
+        private Integer textReviewsCount;
+        private List<Integer> series;
         private String countryCode;
         private String languageCode;
         private List<Shelf> popularShelves;
         private String asin;
-        private String isEbook;
-        private String averageRating;
+        private Boolean isEbook;
+        private Double averageRating;
         private String kindleAsin;
-        private List<String> similarBooks;
+        private List<Integer> similarBooks;
         private String description;
         private String format;
         private String link;
         private List<Role> authors;
         private String publisher;
-        private String numPages;
-        private String publicationDay;
+        private Integer numPages;
+        private Integer publicationDay;
         private String isbn13;
-        private String publicationMonth;
+        private Integer publicationMonth;
         private String edition_information;
-        private String publicationYear;
+        private Integer publicationYear;
         private String url;
         private String imageUrl;
         private String bookId;
-        private String ratingsCount;
+        private Integer ratingsCount;
         private String workId;
         private String title;
         private String titleWithoutSeries;
@@ -447,12 +447,12 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withTextReviewsCount(String textReviewsCount) {
+        public BookBuilder withTextReviewsCount(Integer textReviewsCount) {
             this.textReviewsCount = textReviewsCount;
             return this;
         }
 
-        public BookBuilder withSeries(List<String> series) {
+        public BookBuilder withSeries(List<Integer> series) {
             this.series = series;
             return this;
         }
@@ -477,12 +477,12 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withIsEbook(String isEbook) {
+        public BookBuilder withIsEbook(Boolean isEbook) {
             this.isEbook = isEbook;
             return this;
         }
 
-        public BookBuilder withAverageRating(String averageRating) {
+        public BookBuilder withAverageRating(Double averageRating) {
             this.averageRating = averageRating;
             return this;
         }
@@ -492,7 +492,7 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withSimilarBooks(List<String> similarBooks) {
+        public BookBuilder withSimilarBooks(List<Integer> similarBooks) {
             this.similarBooks = similarBooks;
             return this;
         }
@@ -522,12 +522,12 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withNumPages(String numPages) {
+        public BookBuilder withNumPages(Integer numPages) {
             this.numPages = numPages;
             return this;
         }
 
-        public BookBuilder withPublicationDay(String publicationDay) {
+        public BookBuilder withPublicationDay(Integer publicationDay) {
             this.publicationDay = publicationDay;
             return this;
         }
@@ -537,17 +537,17 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withPublicationMonth(String publicationMonth) {
+        public BookBuilder withPublicationMonth(Integer publicationMonth) {
             this.publicationMonth = publicationMonth;
             return this;
         }
 
-        public BookBuilder withEdition_information(String edition_information) {
+        public BookBuilder withEditioninformation(String edition_information) {
             this.edition_information = edition_information;
             return this;
         }
 
-        public BookBuilder withPublicationYear(String publicationYear) {
+        public BookBuilder withPublicationYear(Integer publicationYear) {
             this.publicationYear = publicationYear;
             return this;
         }
@@ -567,7 +567,7 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withRatingsCount(String ratingsCount) {
+        public BookBuilder withRatingsCount(Integer ratingsCount) {
             this.ratingsCount = ratingsCount;
             return this;
         }
@@ -609,7 +609,7 @@ public class Book {
             book.setPublicationDay(publicationDay);
             book.setIsbn13(isbn13);
             book.setPublicationMonth(publicationMonth);
-            book.setEdition_information(edition_information);
+            book.setEditionInformation(edition_information);
             book.setPublicationYear(publicationYear);
             book.setUrl(url);
             book.setImageUrl(imageUrl);

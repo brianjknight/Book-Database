@@ -5,21 +5,21 @@ import java.util.Objects;
 
 @Embeddable
 public class Role {
-    private String authorId;
+    private Integer authorId;
     private String role;
 
     public Role() {}
 
-    public Role(String authorId, String role) {
+    public Role(Integer authorId, String role) {
         this.authorId = authorId;
         this.role = role;
     }
 
-    public String getAuthorId() {
+    public Integer getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(String authorId) {
+    public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
     }
 

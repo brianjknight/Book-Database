@@ -5,21 +5,21 @@ import java.util.Objects;
 
 @Embeddable
 public class Shelf {
-    private String count;
+    private Integer count;
     private String name;
 
     public Shelf() {}
 
-    public Shelf(String count, String name) {
+    public Shelf(Integer count, String name) {
         this.count = count;
         this.name = name;
     }
 
-    public String getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
