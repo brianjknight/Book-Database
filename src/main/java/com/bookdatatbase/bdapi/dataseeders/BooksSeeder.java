@@ -2,6 +2,7 @@ package com.bookdatatbase.bdapi.dataseeders;
 
 import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.services.BookService;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class BooksSeeder implements CommandLineRunner {
             int dbLimit = 20;
 
             GsonBuilder builder = new GsonBuilder();
+            builder.setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
             Gson gson = builder.create();
 
             try {
@@ -42,7 +44,9 @@ public class BooksSeeder implements CommandLineRunner {
 
                 while (line != null) {
                     count++;
+                    System.out.println("current line= " + line);
                     Book book = gson.fromJson(line, Book.class);
+                    System.out.println("current book= " + book);
                     bookService.saveBook(book);
 
                     if (count >= dbLimit) {
