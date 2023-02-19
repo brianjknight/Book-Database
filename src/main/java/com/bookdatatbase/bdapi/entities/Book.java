@@ -2,6 +2,7 @@ package com.bookdatatbase.bdapi.entities;
 
 import com.bookdatatbase.bdapi.models.Role;
 import com.bookdatatbase.bdapi.models.Shelf;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -179,6 +180,7 @@ public class Book {
         this.asin = asin;
     }
 
+    @JsonProperty(value = "isEbook")
     public Boolean isEbook() {
         return isEbook;
     }
