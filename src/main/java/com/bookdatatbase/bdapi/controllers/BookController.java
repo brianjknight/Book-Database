@@ -24,7 +24,7 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    @GetMapping("{isbn}")
+    @GetMapping("{id}")
     public ResponseEntity<Book> findBookById(@PathVariable UUID id) {
         return bookService.findBookById(id);
     }
@@ -47,7 +47,7 @@ public class BookController {
         return bookService.saveBook(book);
     }
 
-    @PutMapping("{isbn}")
+    @PutMapping("{id}")
     public ResponseEntity<Book> updateBookByIsbn(@PathVariable UUID id, @RequestBody Book book) {
         if(Objects.isNull(book)) {
             throw new IllegalArgumentException("Book input cannot be null.");
@@ -55,7 +55,7 @@ public class BookController {
         return bookService.updateBookById(id, book);
     }
 
-    @DeleteMapping("{isbn}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteBookByIsbn(@PathVariable UUID id) {
         return bookService.deleteBookByIsbn(id);
     }
