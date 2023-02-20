@@ -48,7 +48,7 @@ public class BookController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Book> updateBookByIsbn(@PathVariable UUID id, @RequestBody Book book) {
+    public ResponseEntity<Book> updateBookById(@PathVariable UUID id, @RequestBody Book book) {
         if(Objects.isNull(book)) {
             throw new IllegalArgumentException("Book input cannot be null.");
         }
@@ -56,8 +56,8 @@ public class BookController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteBookByIsbn(@PathVariable UUID id) {
-        return bookService.deleteBookByIsbn(id);
+    public ResponseEntity<String> deleteBookById(@PathVariable UUID id) {
+        return bookService.deleteBookById(id);
     }
 
 }
