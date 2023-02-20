@@ -72,7 +72,7 @@ public class BookService {
         return this.saveBook(bookToUpdate);
     }
 
-    public ResponseEntity<String> deleteBookByIsbn(UUID id) {
+    public ResponseEntity<String> deleteBookById(UUID id) {
         Book bookToDelete = this.getBookById(id);
         bookRepository.delete(bookToDelete);
 
