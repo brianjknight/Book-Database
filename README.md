@@ -25,7 +25,8 @@ Mengting Wan, Rishabh Misra, Ndapa Nakashole, Julian McAuley, "Fine-Grained Spoi
 
   - https://sites.google.com/eng.ucsd.edu/ucsdbookgraph/home
   - https://github.com/MengtingWan/goodreads
-  - https://www.kaggle.com/datasets/jealousleopard/goodreadsbooks
 
 
 - My Goodreads data https://help.goodreads.com/s/article/How-do-I-get-a-copy-of-my-data-from-Goodreads
+- Searching And Filtering Using JPA Specification - Spring Boot
+  - https://blog.piinalpin.com/2022/04/searching-and-filtering-using-jpa-specification/#using-search-specification
