@@ -3,9 +3,12 @@ package com.bookdatatbase.bdapi.services;
 import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.exceptions.BookNotFoundException;
 import com.bookdatatbase.bdapi.repositories.BookRepository;
+import com.bookdatatbase.bdapi.search.SearchRequest;
+import com.bookdatatbase.bdapi.search.SearchSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,12 @@ public class BookService {
 
     public ResponseEntity<Page<Book>>  findAllBooksPaginated(int offset, int limit) {
         return ResponseEntity.ok(bookRepository.findAll(PageRequest.of(offset, limit, Sort.by(DESC,"averageRating"))));
+    }
+
+    public ResponseEntity<Page<Book>> searchBookDatabase(SearchRequest request) {
+        SearchSpecification<Book> specification = new SearchSpecification<>(request);
+        Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
+        return ResponseEntity.ok(bookRepository.findAll(specification, pageable));
     }
 
     public ResponseEntity<Book> saveBook(Book book) {

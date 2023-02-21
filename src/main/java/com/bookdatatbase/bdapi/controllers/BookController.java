@@ -1,6 +1,7 @@
 package com.bookdatatbase.bdapi.controllers;
 
 import com.bookdatatbase.bdapi.entities.Book;
+import com.bookdatatbase.bdapi.search.SearchRequest;
 import com.bookdatatbase.bdapi.services.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class BookController {
     @GetMapping("{offset}/{limit}")
     public ResponseEntity<Page<Book>> findAllBooksPaginated(@PathVariable int offset, @PathVariable int limit) {
         return bookService.findAllBooksPaginated(offset, limit);
+    }
+
+    @PostMapping(value = "/search")
+    public ResponseEntity<Page<Book>> searchBookDatabase(@RequestBody SearchRequest request) {
+        return bookService.searchBookDatabase(request);
     }
 
     @PostMapping
