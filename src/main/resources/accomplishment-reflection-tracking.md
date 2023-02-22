@@ -59,7 +59,7 @@
   * **Seeding** the Book database:
     * Initial issue is the zipped file is a list of JSON strings separated by lines. So, I need to figure out how to iterate the file by line, convert to a Book object, and save to the DB.  
       * I first tried to unzip the file and use a buffered reader which resulted in a very large file.
-      * After referencing the Goodreads dataset **project documentation**, I found a function in **Python** on how to load the data.  
+      * After referencing the Goodreads dataset **project documentation**, I found a function in **Python** on how to load the data by reading a Gzip file.  
         * https://github.com/MengtingWan/goodreads/blob/master/samples.ipynb
         * Used this as the basis to create my BookSeeder class.
 
@@ -78,7 +78,7 @@
 * 2/16/23
   * Problem: BookSeeder runs but does not populate all columns. Some have null data.
     * **Deserializing** using gson.fromJson() to a Book object is not working for all fields due to the use of **camel case** in my code vs **snake case** in the JSON file.  
-    * Solution:
+    * (Initial) Solution:
       * In the **Gson documentation**, you can use **@SerializedName**("custom_naming"), however since this is a common convention it also provides **FieldNamingPolicy** to auto convert all instances!
       * ```builder.setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);```
   
@@ -98,22 +98,86 @@
       12. publication_year Integer
       14. ratings_count Integer
     * Use Gson documentation for a strategy or tool to convert String to Integer
-      * Implement a **custom deserializer** _public class BookDeserializer implements **JsonDeserializer**_ to convert specific fields. This will render the FieldNamingPolicy redundant.  
-      * The purpose of converting to Integer in the database is for **scalable** querying. 
+      * Implement a **custom deserializer** _public class BookDeserializer implements **JsonDeserializer**_ to convert specific fields.
+        (This will render the FieldNamingPolicy described above redundant.)  
+      * The purpose of converting to Integer in the database is for **scalable** and efficient querying. 
         By converting the Strings to Integer at the initial seeding, these types will not need to be converted every time a filter is imposed. 
-        For example, published between the year 1990 and 2000.
+        For example, published between the year 1990 and 2000 would need to convert a String  e.g. "1995" to int 1995 for millions of books in the database.
+
+* 2/19/23
+  * Testing API in Postman:
+    * Issue: responses show a Book object with "ebook" last instead of corresponding "isEbook" field in order
+      * Solution: _@JsonProperty_ annotation; 
+        The name & order were due to serialization automatically returning the property by the related getter method name instead of field name. 
+        It removes "get" or "is" by default. (e.g. getIsbn -> isbn, isEbook -> ebook)
+    * Task: add GET request that can filter on 1 to many parameters if present.
+      * Need to research documentation on how to do this.
+        * Spring Boot JPA [https://blog.piinalpin.com/2022/04/searching-and-filtering-using-jpa-specification/](https://blog.piinalpin.com/2022/04/searching-and-filtering-using-jpa-specification/)
+          * Sort enums
+          * class SortRequest implements Serializable
+          * class SearchRequest implements Serializable
+          * class SearchSpecification implements Specification
+          * then in the Service want to make a searchBooks(SearchRequest) which returns a Page
+
+### Week 3
+
+* 2/20/23
+  * Spring Data JPA Querying
+    * I tested query creation by defining methods in the BookRepository.
+      * By combining subject and predicate keywords, JPA can query the database.
+        * e.g. ```public List<Book> findByLanguageCodeIgnoreCaseAndTextReviewsCountGreaterThan();```
+      * This works in specific cases but not for 1 to many filters as you don't know how many criteria filters and which ones will be used.
+    * Try using Sort objects as parameters
+      * List<User> findByLastname(String lastname, Sort sort);
+      * Sort sort = Sort.by("firstname").ascending()
+        .and(Sort.by("lastname").descending());
+    * Limit results by keyword first or top 
+      * e.g. find*First10*ByLastname(String lastname);
+    * Could possibly return a Streamable or Iterable to .filter() elements but this would return every item in the database to filter locally.
+    * [Customizing a repo](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.single-repository-behavior)
+    * [Querydsl Extension](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#core.extensions.querydsl)
+      * framework that enables the construction of statically typed SQL-like queries
+    * [Query By Example](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#query-by-example)
+      * Well suited for querying your data store with a set of static or dynamic constraints
+      * limitations 
+        * No support for nested or grouped property constraints
+        * Only supports starts/contains/ends/regex matching for strings and exact matching for other property types
+    * SOLUTION excellent example by Alvinditya Saputra on PiinAlpin:
+      * [Searching And Filtering Using JPA Specification - Spring Boot](https://blog.piinalpin.com/2022/04/searching-and-filtering-using-jpa-specification/#using-search-specification)
+* 2/21/23
+  * Implemented classes and code from solution above.
+  * The "/search" endpoint can now take a dynamic request body with a list of filters and sorts as well as page and size input for pagination.
+    * Example:  
+    ![](images/search-example.png)
 
 
 ## TODO
-* I think it would be better practice and a learning opportunity to convert and store Integers in the database for appropriate fields.
+* **_Rebase and push to Main by end of week!!!_**
+* Try GET request to /search with not body
+* Add my additional functionality to Searching & Filtering
+  * Enums for GREATER_THAN and LESS_THAN
+  * 
+* Eventually I want to condense the returned info. The full book object has far too much data and is difficult to read.
+* Before creating full customer controller for filtering I need to implement Author and Genres tables so they can be included in the search.
 * Create architecture diagram 
-* Figure out how to seed the database from the JSON files  
-* create the data model classes for book, author, and genres  
-* create the JPA repos  
-* create the service  
-* create the controllers with working endpoints  
-* Improve scalability:
+* create the entities, repos, service, controllers, and seeders: 
+  * Book
+  * Author
+  * Genres
+* Security protocols with OAuth
+* Improve **scalability**:
   * Implement logging to document performance before and after
-  * Implement pagination
+  * Implement pagination (or Slices)
+    * The first method lets you pass an org.springframework.data.domain.Pageable instance to the query method to dynamically add paging to your statically defined query. 
+      A Page knows about the total number of elements and pages available. 
+      It does so by the infrastructure triggering a count query to calculate the overall number. 
+      **_As this might be expensive (depending on the store used), you can instead return a Slice._** 
+      A Slice knows only about whether a next Slice is available, which might be sufficient when walking through a larger result set.
   * Implement caching
+    * I could create GET methods of Top n Books all time for categories
+    * Or Top n books by author
+    * Highest Rated authors
+    * Use Spring query creation with property expressions for nested properties
+      * e.g. try findByTextReviewsCountGreaterThanAndLanguageCodeAndPopularShelvesNameContainingOrderByAverageRatingDesc():
+        * PopularShelvesNameContaining -> ?? use specific genre like "fantasy"
 
