@@ -39,3 +39,4 @@ out/
 application-dev.properties
 data/pg
 resources/application.yaml
+data/book-data
