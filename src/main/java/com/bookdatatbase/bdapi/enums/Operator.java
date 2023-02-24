@@ -29,6 +29,90 @@ public enum Operator {
         }
     },
 
+    GREATER_THAN {
+      public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+          Object value = request.getFieldType().parse(request.getValue().toString());
+
+          if (request.getFieldType() == FieldType.DATE) {
+              LocalDateTime date = (LocalDateTime) value;
+              Expression<LocalDateTime> key = root.get(request.getKey());
+              return cb.and(cb.and(cb.greaterThan(key, date), predicate));
+          }
+
+          if (request.getFieldType() != FieldType.CHAR && request.getFieldType() != FieldType.BOOLEAN) {
+              Number num = (Number) value;
+              Expression<Number> key = root.get(request.getKey());
+              return cb.and(cb.and(cb.gt(key, num), predicate));
+          }
+
+          log.info("Can not use between for {} field type.", request.getFieldType());
+          return predicate;
+      }
+    },
+
+    GREATER_THAN_OR_EQUAL_TO {
+      public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+          Object value = request.getFieldType().parse(request.getValue().toString());
+
+          if (request.getFieldType() == FieldType.DATE) {
+              LocalDateTime date = (LocalDateTime) value;
+              Expression<LocalDateTime> key = root.get(request.getKey());
+              return cb.and(cb.and(cb.greaterThanOrEqualTo(key, date), predicate));
+          }
+
+          if (request.getFieldType() != FieldType.CHAR && request.getFieldType() != FieldType.BOOLEAN) {
+              Number num = (Number) value;
+              Expression<Number> key = root.get(request.getKey());
+              return cb.and(cb.and(cb.ge(key, num), predicate));
+          }
+
+          log.info("Can not use between for {} field type.", request.getFieldType());
+          return predicate;
+      }
+    },
+
+    LESS_THAN {
+      public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+          Object value = request.getFieldType().parse(request.getValue().toString());
+
+          if (request.getFieldType() == FieldType.DATE) {
+              LocalDateTime date = (LocalDateTime) value;
+              Expression<LocalDateTime> key = root.get(request.getKey());
+              return cb.and(cb.and(cb.lessThan(key, date), predicate));
+          }
+
+          if (request.getFieldType() != FieldType.CHAR && request.getFieldType() != FieldType.BOOLEAN) {
+              Number num = (Number) value;
+              Expression<Number> key = root.get(request.getKey());
+              return cb.and(cb.and(cb.lt(key, num), predicate));
+          }
+
+          log.info("Can not use between for {} field type.", request.getFieldType());
+          return predicate;
+      }
+    },
+
+    LESS_THAN_OR_EQUAL_TO {
+        public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+            Object value = request.getFieldType().parse(request.getValue().toString());
+
+            if (request.getFieldType() == FieldType.DATE) {
+                LocalDateTime date = (LocalDateTime) value;
+                Expression<LocalDateTime> key = root.get(request.getKey());
+                return cb.and(cb.and(cb.lessThanOrEqualTo(key, date), predicate));
+            }
+
+            if (request.getFieldType() != FieldType.CHAR && request.getFieldType() != FieldType.BOOLEAN) {
+                Number num = (Number) value;
+                Expression<Number> key = root.get(request.getKey());
+                return cb.and(cb.and(cb.le(key, num), predicate));
+            }
+
+            log.info("Can not use between for {} field type.", request.getFieldType());
+            return predicate;
+        }
+    },
+
     LIKE {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
             Expression<String> key = root.get(request.getKey());
