@@ -40,6 +40,11 @@ public class BookController {
         return bookService.findAllBooksPaginated(offset, limit);
     }
 
+    /**
+     *
+     * @param request - a SearchRequest that contains list of filters, list of sorts, page number, and number of results per page.
+     * @return Page object of books matching the search criteria.
+     */
     @PostMapping(value = "/search")
     public ResponseEntity<Page<Book>> searchBookDatabase(@RequestBody SearchRequest request) {
         return bookService.searchBookDatabase(request);
