@@ -113,6 +113,10 @@ public enum Operator {
         }
     },
 
+    /**
+     * Enum operator to compare values that match a pattern.
+     * Must be a string.
+     */
     LIKE {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
             Expression<String> key = root.get(request.getKey());
@@ -120,6 +124,9 @@ public enum Operator {
         }
     },
 
+    /**
+     * Enum operator to compare values that match any of the values in a given list.
+     */
     IN {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
             List<Object> values = request.getValues();
@@ -131,6 +138,9 @@ public enum Operator {
         }
     },
 
+    /**
+     * Enum operator to match values in an inclusive range.
+     */
     BETWEEN {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
             Object value = request.getFieldType().parse(request.getValue().toString());
