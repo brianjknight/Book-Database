@@ -120,7 +120,6 @@ public enum Operator {
     LIKE {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
             if(request.getFieldType() != FieldType.STRING) {
-                System.out.printf("Can not use LIKE_TWO operator for {} field type. Only STRING field type can be used.", request.getFieldType());
                 log.info("Can not use LIKE_TWO operator for {} field type. Only STRING field type can be used.", request.getFieldType());
                 return predicate;
             }
