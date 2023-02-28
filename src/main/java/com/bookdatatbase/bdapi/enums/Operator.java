@@ -8,6 +8,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -114,13 +115,23 @@ public enum Operator {
     },
 
     /**
-     * Enum operator to compare values that match a pattern.
-     * Must be a string.
+     * Enum operator to compare values that match 1 to many String patterns and is NOT case-sensitive.
      */
     LIKE {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+            if(request.getFieldType() != FieldType.STRING) {
+                System.out.printf("Can not use LIKE_TWO operator for {} field type. Only STRING field type can be used.", request.getFieldType());
+                log.info("Can not use LIKE_TWO operator for {} field type. Only STRING field type can be used.", request.getFieldType());
+                return predicate;
+            }
+
             Expression<String> key = root.get(request.getKey());
-            return cb.and(cb.like(cb.upper(key), "%" + request.getValue().toString().toUpperCase() + "%"), predicate);
+
+            Predicate[] predicatesArray = request.getValues().stream()
+                                                        .map(object -> cb.like(cb.upper(key), "%" + object.toString().toUpperCase() + "%"))
+                                                        .toArray(Predicate[]::new);
+
+            return cb.and(cb.and(predicatesArray), predicate);
         }
     },
 
@@ -163,6 +174,10 @@ public enum Operator {
             return predicate;
         }
     };
+
+    private static <T> Predicate buildAndPredicate(Root<T> root, CriteriaBuilder cb, List<Predicate> predicates) {
+        return cb.and(predicates.toArray(new Predicate[0]));
+    }
 
     public abstract <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate);
 

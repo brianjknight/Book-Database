@@ -149,16 +149,75 @@
   * The "/search" endpoint can now take a dynamic request body with a list of filters and sorts as well as page and size input for pagination.
     * Example:  
     ![](images/search-example.png)
+* 2/22/23
+  * MVP was accomplished for BD-6 creating Book entity, API endpoints, and seeder.
+  * Merged to main branch
+  * Next up I want to refine searches and returned items.
+* 2/24/23
+  * Created new branch BD-13-search for refining search methods
+  * Problem: the resource I used for search & filter did not include greater than or less than in enums.
+    * Solution: I added enums for filtering based on GREATER_THAN, GREATER_THEN_OR_EQUAL_TO, LESS_THAN, & LESS_THAN_OR_EQUAL_TO
+    * This hung me up for a bit. 
+      I realized I was using the wrong CriteriaBuilder method _greaterThan(Expression<? extends Y> x, Y y)_ versus _gt(Expression<? extends Number> x, Number y)_. 
+      I needed to use the Expression extending Number type when comparing numbers.
+  * Tested /search endpoint with only page and number providing no Filter or Sort. This acts the same as findAllBooksPaginated() method, so I could potentially remove that as a redundancy. 
+* 2/25/23
+  * Tested /search endpoint using _IN_ and _LIKE_ Operators
+    * _LIKE_ can be used to search a description for a keyword.
+    * I would like to create a _CONTAINS_ Operator that tests if contains on a list of keywords.
+  * Added java doc comments.
+  * Revised README problem statement slightly with Goodreads screenshot.
+  * **To better understand the search and FilterRequests, I want to step into the code using a debugger.**
+    * Goal is to configure a remote debugger.
+    * Running into a lot of issues not fully understanding how to configure remote debugger. 
+      Review these sources for help:
+      * https://www.jetbrains.com/help/idea/debug-a-java-application-using-a-dockerfile.html
+      * https://www.jetbrains.com/help/idea/run-and-debug-a-spring-boot-application-using-docker-compose.html
+      * https://www.baeldung.com/intellij-remote-debugging
+      * Maybe start here spend a day or more learning more about Docker: https://docs.docker.com/get-started/overview/
+      * https://stackoverflow.com/questions/37702073/gradle-remote-debugging-process
+
+### Week 4
+* 2/27/23
+  * After a break this was much easier than I was making it out to be.
+    ![](images/attach-debugger-steps.png)
+  * CriteriaBuilder does not have a _contains_ method, but I can use a conjunction of predicates to combine multiple like() predicates.  
+    * Modifying enum ```Operator.LIKE```:
+      * Create a Predicate array from the existing FilterRequest List<Object> values field.
+      * Use ```cb.and(predicatesArray)``` conjunct the array to a single predicate.
+      * Original implementation for one pattern: 
+      ```
+      LIKE {
+            public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+                Expression<String> key = root.get(request.getKey());
+                return cb.and(cb.like(cb.upper(key), "%" + request.getValue().toString().toUpperCase() + "%"), predicate);
+                }
+            }, 
+      ```
+      * New implementation to match 0 to many patterns:
+      ```
+        LIKE {
+            public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+                Expression<String> key = root.get(request.getKey());
+                Predicate[] predicatesArray = request.getValues().stream()
+                                                        .map(object -> cb.like(cb.upper(key), "%" + object.toString().toUpperCase() + "%"))
+                                                        .toArray(Predicate[]::new);
+
+                return cb.and(cb.and(predicatesArray), predicate);
+            }
+        },
+      ```
+  * Problem: if statements for logging and returning predicate returns all items.
+    * I'd rather return no results or an error.
 
 
 ## TODO
-* **_Rebase and push to Main by end of week!!!_**
-* Try GET request to /search with not body
 * Add my additional functionality to Searching & Filtering
-  * Enums for GREATER_THAN and LESS_THAN
-  * 
-* Eventually I want to condense the returned info. The full book object has far too much data and is difficult to read.
-* Before creating full customer controller for filtering I need to implement Author and Genres tables so they can be included in the search.
+  * ~~Enums for GREATER_THAN and LESS_THAN~~
+  * **CONTAINS -> if the description contains a keyword I'm interested in.**
+* **Eventually I want to condense the returned info. The full book object has far too much data and is difficult to read.**
+* Modify API HTTP responses to include message with status code.
+* After creating Author and Genre entities, incorporate the into the /search endpoint???
 * Create architecture diagram 
 * create the entities, repos, service, controllers, and seeders: 
   * Book
