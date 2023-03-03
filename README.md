@@ -9,7 +9,7 @@ The purpose of this project is to gain experience with APIs (Spring Boot) and SQ
 I sometimes have trouble deciding on my next book to read. 
 Rather than using Goodreads recommendations, I would rather search for books depending on my mood at the time. 
 However, as you can see in this example, Goodreads search options are quite limited with only 4 filter options; "all", "title", "author", or "genre".  
-<img src="src/main/resources/images/goodreads-search.png">  
+<p style="text-align:center;"><img src="src/main/resources/images/goodreads-search.png" width=75% align="middle"></p>  
 I often find myself using Google searches such as "best space sci-fi books all-time" or "top tech thriller book of the last 15 years". 
 I end up spending a lot of time browsing lists from different sources unable to make a decision based on someone else's subjective opinions. 
 I would like a way to run an advanced, custom search on the Goodreads database.
