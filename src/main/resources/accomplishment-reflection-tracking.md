@@ -211,12 +211,26 @@
     * I'd rather return no results or an error.
 * 3/2/23
   * Commit and merge updates to main branch.
+  
+* 3/3/23
+  * Reduce the Book object and/or JSON response fields 
+    * ```@JsonIgnore``` annotation instructs serialization of the JSON object to Book to ignore designated fields.  
+      This keeps the data in Postgres to allow for searching but does not return it in the response. 
+      * popularShelves is a long list which is not needed for the response, however it can be useful in filtering based on how many shelves the book is in.
+      * publisher is not important to me at the moment but might prove useful later for searching. Leaving it as ignored for now.
+    * The following fields are irrelevant. I removed these from the Book entity all together to save space in the database.
+      * publicationDay
+      * isbn13
+      * publicationMonth
+      * workId
+  
+
 
 ## TODO
 * Add my additional functionality to Searching & Filtering
   * ~~Enums for GREATER_THAN and LESS_THAN~~
-  * **CONTAINS -> if the description contains a keyword I'm interested in.**
-* **Eventually I want to condense the returned info. The full book object has far too much data and is difficult to read.**
+  * ~~CONTAINS -> if the description contains a keyword I'm interested in.~~
+  * Am I done/met MVP for Book?
 * Modify API HTTP responses to include message with status code.
 * After creating Author and Genre entities, incorporate the into the /search endpoint???
 * Create architecture diagram 
