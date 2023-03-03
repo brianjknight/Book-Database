@@ -231,6 +231,7 @@
 * Add my additional functionality to Searching & Filtering
   * ~~Enums for GREATER_THAN and LESS_THAN~~
   * ~~CONTAINS -> if the description contains a keyword I'm interested in.~~
+  * NULL and NOT_NULL enums or filtering. 
   * Am I done/met MVP for Book?
 * Modify API HTTP responses to include message with status code.
 * After creating Author and Genre entities, incorporate the into the /search endpoint???
