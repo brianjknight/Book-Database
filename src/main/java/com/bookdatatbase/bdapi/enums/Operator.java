@@ -14,6 +14,9 @@ import java.util.List;
 @Slf4j
 public enum Operator {
 
+    /**
+     * Enum for equal.
+     */
     EQUAL {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
             Object value = request.getFieldType().parse(request.getValue().toString());
@@ -22,6 +25,9 @@ public enum Operator {
         }
     },
 
+    /**
+     * Enum for not equal.
+     */
     NOT_EQUAL {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
             Object value = request.getFieldType().parse(request.getValue().toString());
@@ -30,6 +36,9 @@ public enum Operator {
         }
     },
 
+    /**
+     * Enum for comparing greater than.
+     */
     GREATER_THAN {
       public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
           Object value = request.getFieldType().parse(request.getValue().toString());
@@ -51,6 +60,9 @@ public enum Operator {
       }
     },
 
+    /**
+     * Enum for comparing greater than or equal to.
+     */
     GREATER_THAN_OR_EQUAL_TO {
       public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
           Object value = request.getFieldType().parse(request.getValue().toString());
@@ -72,6 +84,9 @@ public enum Operator {
       }
     },
 
+    /**
+     * Enum for comparing less than.
+     */
     LESS_THAN {
       public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
           Object value = request.getFieldType().parse(request.getValue().toString());
@@ -93,6 +108,9 @@ public enum Operator {
       }
     },
 
+    /**
+     * Enum for comparing less than or equal to.
+     */
     LESS_THAN_OR_EQUAL_TO {
         public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
             Object value = request.getFieldType().parse(request.getValue().toString());

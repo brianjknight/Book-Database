@@ -25,12 +25,18 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    /**
+     * GET mapping for finding a single book by primary key.
+     * @param id UUID & primary key.
+     * @return Book object
+     */
     @GetMapping("{id}")
     public ResponseEntity<Book> findBookById(@PathVariable UUID id) {
         return bookService.findBookById(id);
     }
 
     /**
+     * GET mapping for pagination.
      * @param offset page index to return results from.
      * @param limit number of results to include per page.
      * @return returns a paginated list as a Page object.
@@ -41,7 +47,7 @@ public class BookController {
     }
 
     /**
-     *
+     * Post mapping for searching database and filtering responses.
      * @param request - a SearchRequest that contains list of filters, list of sorts, page number, and number of results per page.
      * @return Page object of books matching the search criteria.
      */
@@ -50,6 +56,11 @@ public class BookController {
         return bookService.searchBookDatabase(request);
     }
 
+    /**
+     * POST mapping saves a book to the database.
+     * @param book Book object to save.
+     * @return saved Book.
+     */
     @PostMapping
     public ResponseEntity<Book> saveBook(@RequestBody Book book) {
         if(Objects.isNull(book)) {
@@ -58,6 +69,12 @@ public class BookController {
         return bookService.saveBook(book);
     }
 
+    /**
+     * PUT mapping to update an existing Book.
+     * @param id UUID & primary key.
+     * @param book Book object with updated attributes.
+     * @return the updated Book.
+     */
     @PutMapping("{id}")
     public ResponseEntity<Book> updateBookById(@PathVariable UUID id, @RequestBody Book book) {
         if(Objects.isNull(book)) {
@@ -66,6 +83,11 @@ public class BookController {
         return bookService.updateBookById(id, book);
     }
 
+    /**
+     * DELETE mapping to delete a book from the database.
+     * @param id UUID & primary key.
+     * @return String acknowledging deletion of the Book.
+     */
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteBookById(@PathVariable UUID id) {
         return bookService.deleteBookById(id);
