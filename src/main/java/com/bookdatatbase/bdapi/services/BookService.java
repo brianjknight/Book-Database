@@ -65,16 +65,12 @@ public class BookService {
         bookToUpdate.setAuthors(book.getAuthors());
         bookToUpdate.setPublisher(book.getPublisher());
         bookToUpdate.setNumPages(book.getNumPages());
-        bookToUpdate.setPublicationDay(book.getPublicationDay());
-        bookToUpdate.setIsbn13(book.getIsbn13());
-        bookToUpdate.setPublicationMonth(book.getPublicationMonth());
         bookToUpdate.setEditionInformation(book.getEditionInformation());
         bookToUpdate.setPublicationYear(book.getPublicationYear());
         bookToUpdate.setUrl(book.getUrl());
         bookToUpdate.setImageUrl(book.getImageUrl());
         bookToUpdate.setBookId(book.getBookId());
         bookToUpdate.setRatingsCount(book.getRatingsCount());
-        bookToUpdate.setWorkId(book.getWorkId());
         bookToUpdate.setTitle(book.getTitle());
         bookToUpdate.setTitleWithoutSeries(book.getTitleWithoutSeries());
 
