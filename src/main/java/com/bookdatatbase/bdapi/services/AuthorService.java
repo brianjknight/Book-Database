@@ -19,6 +19,10 @@ public class AuthorService {
     }
 
     public ResponseEntity<Author> saveAuthor(Author author) {
+        if(Objects.isNull(author)) {
+            throw new IllegalArgumentException("Author provided cannot be null.");
+        }
+
         return ResponseEntity.ok(authorRepository.save(author));
     }
 
