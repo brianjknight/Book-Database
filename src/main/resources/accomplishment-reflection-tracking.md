@@ -224,20 +224,27 @@
       * publicationMonth
       * workId
   * Added java doc comments.
-  
+
+### Week 4
+* 3/7/23
+  * Considering whether to include NULL/NOTNULL Operator enums.
+    * Due to the data set JSON file of all Strings and my ```BookDeserializer``` implementation, the only fields that would be null are numbers.  
+    * When searching "number" fields, null values will be excluded for operators
+    * All other fields will return an empty string or list if data is absent.
+    * For the scope of this project, NULL & NOT_NULL Operators are not needed.
 
 
 ## TODO
 * Add my additional functionality to Searching & Filtering
   * ~~Enums for GREATER_THAN and LESS_THAN~~
   * ~~CONTAINS -> if the description contains a keyword I'm interested in.~~
-  * NULL and NOT_NULL enums or filtering. 
+  * ~~NULL and NOT_NULL enums or filtering.~~ 
   * Am I done/met MVP for Book?
 * Modify API HTTP responses to include message with status code.
 * After creating Author and Genre entities, incorporate the into the /search endpoint???
 * Create architecture diagram 
 * create the entities, repos, service, controllers, and seeders: 
-  * Book
+  * ~~Book~~
   * Author
   * Genres
 * Security protocols with OAuth
