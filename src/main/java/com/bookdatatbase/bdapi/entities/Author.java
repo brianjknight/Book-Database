@@ -2,6 +2,8 @@ package com.bookdatatbase.bdapi.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
@@ -10,8 +12,9 @@ import java.util.Objects;
 @Table(name = "Authors")
 public class Author {
     @Id
-    @Column(updatable = false, nullable = false)
-    private Integer author_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "author_id", updatable = false, nullable = false)
+    private Integer authorId;
 
     @Column(name = "average_rating")
     private Double averageRating;
@@ -25,16 +28,18 @@ public class Author {
     @Column(name = "ratings_count")
     private Integer ratingsCount;
 
-    public Author(Integer author_id, Double averageRating, Integer textReviewsCount, String name, Integer ratingsCount) {
-        this.author_id = author_id;
+    public Author() {}
+
+    public Author(Integer authorId, Double averageRating, Integer textReviewsCount, String name, Integer ratingsCount) {
+        this.authorId = authorId;
         this.averageRating = averageRating;
         this.textReviewsCount = textReviewsCount;
         this.name = name;
         this.ratingsCount = ratingsCount;
     }
 
-    public Integer getAuthor_id() {
-        return author_id;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
     public Double getAverageRating() {
@@ -74,7 +79,7 @@ public class Author {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Author author = (Author) o;
-        return Objects.equals(author_id, author.author_id) &&
+        return Objects.equals(authorId, author.authorId) &&
                 Objects.equals(averageRating, author.averageRating) &&
                 Objects.equals(textReviewsCount, author.textReviewsCount) &&
                 Objects.equals(name, author.name) &&
@@ -83,13 +88,13 @@ public class Author {
 
     @Override
     public int hashCode() {
-        return Objects.hash(author_id, averageRating, textReviewsCount, name, ratingsCount);
+        return Objects.hash(authorId, averageRating, textReviewsCount, name, ratingsCount);
     }
 
     @Override
     public String toString() {
         return "Author{" +
-                "author_id=" + author_id +
+                "author_id=" + authorId +
                 ", averageRating=" + averageRating +
                 ", textReviewsCount=" + textReviewsCount +
                 ", name='" + name + '\'' +
