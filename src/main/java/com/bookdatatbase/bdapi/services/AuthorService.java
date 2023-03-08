@@ -31,7 +31,7 @@ public class AuthorService {
             throw new IllegalArgumentException("Author provided cannot be null.");
         }
 
-        Author authorToUpdate = this.getAuthorById(author.getAuthor_id());
+        Author authorToUpdate = this.getAuthorById(author.getAuthorId());
 
         authorToUpdate.setAverageRating(author.getAverageRating());
         authorToUpdate.setTextReviewsCount(author.getTextReviewsCount());
