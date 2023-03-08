@@ -234,15 +234,25 @@
     * For the scope of this project, NULL & NOT_NULL Operators are not needed.
   * Created classes and basic methods for Author entity, repo, service, controller, and exception. 
 * 3/8/23
-  * 
-
+  * Created custom ```AuthorDeserializer``` and ```AuthorSeeder``` classes
+  * Merged to main branch and pushed to remote.
+  * Investigated dataset Book popular_shelves vs. Genres.
+    * Genres are much shorter lists and appear to be more accurate.
+    * popular_shelves within a Book object has a long list of what appears to be arbitrary "shelf/genre" based on how individual readers classify the book.
+    * _Determination: When searching for genre, Genre will return more accurate results and also be a much faster query._
+      * For example book_id 33394837: 
+        * Genre object has list of 4 encompassing genres
+        * Book popular_shelves has a list of appx. 100 "shelves" a lot of which are not genres and appear user-specific (e.g. "to-read", "owned", etc.)
+  * BookGenre
+    * created entity, repo, service, controller, and exception
+    * working on deserializer
 
 ## TODO
-* Create Author 
-  * ~~entity/table, repo, service, & controller~~
-  * Seeder
-  * Deserializer?
-  * Embedded classes?
+* Determine how to search on a List attribute -> popularShelves
+  * want to use LIKE for genres
+  * count should be GREATER_THAN to ensure it is considered that genre by min number of readers
+  * Should I use that on popularShelves in Book or create Genres class with List<Genres>???
+    * The later will be slower in querying on a different table but is better SQL practice to JOIN tables.
 * Modify API HTTP responses to include message with status code.
 * After creating Author and Genre entities, incorporate the into the /search endpoint???
 * Create architecture diagram 
