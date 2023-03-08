@@ -37,5 +37,5 @@ out/
 .vscode/
 
 application-dev.properties
-data/
+data
 resources/application.yaml
