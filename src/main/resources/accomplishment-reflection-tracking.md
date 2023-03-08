@@ -233,9 +233,14 @@
     * All other fields will return an empty string or list if data is absent.
     * For the scope of this project, NULL & NOT_NULL Operators are not needed.
   * Created classes and basic methods for Author entity, repo, service, controller, and exception. 
+* 3/8/23
+  * 
+
 
 ## TODO
-* Create Author entity/table, repo, service, & controller
+* Create Author 
+  * ~~entity/table, repo, service, & controller~~
+  * Seeder
   * Deserializer?
   * Embedded classes?
 * Modify API HTTP responses to include message with status code.
