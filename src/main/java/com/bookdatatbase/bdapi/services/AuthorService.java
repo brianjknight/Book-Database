@@ -3,7 +3,11 @@ package com.bookdatatbase.bdapi.services;
 import com.bookdatatbase.bdapi.entities.Author;
 import com.bookdatatbase.bdapi.exceptions.AuthorNotFoundException;
 import com.bookdatatbase.bdapi.repositories.AuthorRepository;
+import com.bookdatatbase.bdapi.search.SearchRequest;
+import com.bookdatatbase.bdapi.search.SearchSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,12 @@ public class AuthorService {
 
     public ResponseEntity<Author> findAuthorById(Integer id) {
         return ResponseEntity.ok(this.getAuthorById(id));
+    }
+
+    public ResponseEntity<Page<Author>> searchAuthorDatabase(SearchRequest request) {
+        SearchSpecification<Author> specification = new SearchSpecification<>(request);
+        Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
+        return ResponseEntity.ok(authorRepository.findAll(specification, pageable));
     }
 
     public ResponseEntity<Author> saveAuthor(Author author) {

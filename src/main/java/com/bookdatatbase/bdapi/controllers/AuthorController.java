@@ -1,8 +1,10 @@
 package com.bookdatatbase.bdapi.controllers;
 
 import com.bookdatatbase.bdapi.entities.Author;
+import com.bookdatatbase.bdapi.search.SearchRequest;
 import com.bookdatatbase.bdapi.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,11 @@ public class AuthorController {
     @GetMapping("{id}")
     public ResponseEntity<Author> findAuthorById(@PathVariable Integer id) {
         return authorService.findAuthorById(id);
+    }
+
+    @PostMapping(value = "/search")
+    public ResponseEntity<Page<Author>> searchAuthorDatabase(@RequestBody SearchRequest request) {
+        return authorService.searchAuthorDatabase(request);
     }
 
     @PostMapping
