@@ -3,6 +3,8 @@ package com.bookdatatbase.bdapi.entities;
 import com.bookdatatbase.bdapi.models.Genre;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +26,8 @@ public class BookGenre {
     private Integer bookId;
 
     @Column(name = "genres")
+    @ElementCollection
+    @Embedded
     private List<Genre> genres;
 
     public BookGenre() {}
