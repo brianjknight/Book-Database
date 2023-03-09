@@ -36,6 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 
+docker-compose.yaml
 application-dev.properties
 data
 resources/application.yaml
