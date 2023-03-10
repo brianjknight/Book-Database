@@ -246,6 +246,9 @@
   * BookGenre
     * created entity, repo, service, controller, and exception
     * working on deserializer
+* 3/10/23
+  * Created custom BookGenreDeserializer
+  * Created BookGenreSeeder
 
 ## TODO
 * Determine how to search on a List attribute -> popularShelves
