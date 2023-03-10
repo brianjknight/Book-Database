@@ -250,6 +250,10 @@
   * Created custom BookGenreDeserializer
   * Created BookGenreSeeder
 
+HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
+*Separate enums for CONTAINS_GENRE and CONTAINS_AUTHOR??
+
+
 ## TODO
 * Determine how to search on a List attribute -> popularShelves
   * want to use LIKE for genres
