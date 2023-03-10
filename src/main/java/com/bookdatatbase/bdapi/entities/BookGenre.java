@@ -32,6 +32,11 @@ public class BookGenre {
 
     public BookGenre() {}
 
+    public BookGenre(Integer bookId, List<Genre> genres) {
+        this.bookId = bookId;
+        this.genres = genres;
+    }
+
     public BookGenre(UUID id, Integer bookId, List<Genre> genres) {
         this.id = id;
         this.bookId = bookId;
