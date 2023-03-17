@@ -18,14 +18,6 @@ public class BookGenreDeserializer implements JsonDeserializer<BookGenre> {
 
         Integer bookId = object.get("book_id").getAsString().equals("") ? null : object.get("book_id").getAsInt();
 
-//        List<Genre> genreList = new ArrayList<>();
-//        JsonObject genreJSON = object.get("genres").getAsJsonObject();
-//
-//        for(Map.Entry<String, JsonElement> entry : genreJSON.entrySet()) {
-//            Genre genre = new Genre(entry.getKey(), entry.getValue().getAsInt());
-//            genreList.add(genre);
-//        }
-
         List<Genre> genreList = object.get("genres").getAsJsonObject().entrySet().stream()
                                     .map(entry -> new Genre(entry.getKey(), entry.getValue().getAsInt())).toList();
 
