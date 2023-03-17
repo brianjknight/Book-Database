@@ -250,6 +250,12 @@
   * Created custom BookGenreDeserializer
   * Created BookGenreSeeder
 
+### Week 5
+* 3/17/23
+  * Restructure BookGenre so the field List<Genre> with embedded object is simply a String.
+  * Delete Genre model
+  * Reconfigure customer BookGenreDeserializer
+
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
 *Separate enums for CONTAINS_GENRE and CONTAINS_AUTHOR??
 
