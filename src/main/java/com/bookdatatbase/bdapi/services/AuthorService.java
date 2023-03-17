@@ -12,13 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    public ResponseEntity<Author> findAuthorById(Integer id) {
+    public ResponseEntity<Author> findAuthorById(UUID id) {
         return ResponseEntity.ok(this.getAuthorById(id));
     }
 
@@ -36,12 +37,12 @@ public class AuthorService {
         return ResponseEntity.ok(authorRepository.save(author));
     }
 
-    public ResponseEntity<Author> updateAuthor(Author author) {
+    public ResponseEntity<Author> updateAuthor(UUID id, Author author) {
         if(Objects.isNull(author)) {
             throw new IllegalArgumentException("Author provided cannot be null.");
         }
 
-        Author authorToUpdate = this.getAuthorById(author.getAuthorId());
+        Author authorToUpdate = this.getAuthorById(id);
 
         authorToUpdate.setAverageRating(author.getAverageRating());
         authorToUpdate.setTextReviewsCount(author.getTextReviewsCount());
@@ -51,7 +52,7 @@ public class AuthorService {
         return this.saveAuthor(authorToUpdate);
     }
 
-    public ResponseEntity<String> deleteAuthorById(Integer id) {
+    public ResponseEntity<String> deleteAuthorById(UUID id) {
         Author authorToDelete = this.getAuthorById(id);
         authorRepository.delete(authorToDelete);
 
@@ -62,7 +63,7 @@ public class AuthorService {
         return authorRepository.count();
     }
 
-    private Author getAuthorById(Integer id) {
+    private Author getAuthorById(UUID id) {
         return authorRepository.findById(id)
                 .orElseThrow(() -> new AuthorNotFoundException(id));
     }

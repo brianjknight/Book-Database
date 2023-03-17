@@ -262,7 +262,10 @@
     * Refactored Book List<Role> to String
     * Deleted embedded model class Role
     * Reconfigured custom BookDeserializer
-
+  * Problem: in testing SQL commands in Postgres I noticed Author authorId field is auto generated as the key and not the correct id in the dataset.
+    * to correct this and make code consistent with other classes I added UUID id as the primary key.
+    * The JOIN command in Postgres is working now:
+       ![](images/postgres-join-command.png)
 
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
 *Separate enums for CONTAINS_GENRE and CONTAINS_AUTHOR??

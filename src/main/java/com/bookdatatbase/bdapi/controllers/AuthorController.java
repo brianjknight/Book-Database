@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("authors")
 public class AuthorController {
@@ -22,7 +24,7 @@ public class AuthorController {
     private AuthorService authorService;
 
     @GetMapping("{id}")
-    public ResponseEntity<Author> findAuthorById(@PathVariable Integer id) {
+    public ResponseEntity<Author> findAuthorById(@PathVariable UUID id) {
         return authorService.findAuthorById(id);
     }
 
@@ -37,12 +39,12 @@ public class AuthorController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Author> updateAuthor(@RequestBody Author author) {
-        return authorService.updateAuthor(author);
+    public ResponseEntity<Author> updateAuthor(@PathVariable UUID id, @RequestBody Author author) {
+        return authorService.updateAuthor(id, author);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteAuthorById(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteAuthorById(@PathVariable UUID id) {
         return authorService.deleteAuthorById(id);
     }
 }
