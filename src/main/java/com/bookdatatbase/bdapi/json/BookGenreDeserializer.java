@@ -1,7 +1,6 @@
 package com.bookdatatbase.bdapi.json;
 
 import com.bookdatatbase.bdapi.entities.BookGenre;
-import com.bookdatatbase.bdapi.models.Genre;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -9,7 +8,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
-import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BookGenreDeserializer implements JsonDeserializer<BookGenre> {
     @Override
@@ -18,9 +18,9 @@ public class BookGenreDeserializer implements JsonDeserializer<BookGenre> {
 
         Integer bookId = object.get("book_id").getAsString().equals("") ? null : object.get("book_id").getAsInt();
 
-        List<Genre> genreList = object.get("genres").getAsJsonObject().entrySet().stream()
-                                    .map(entry -> new Genre(entry.getKey(), entry.getValue().getAsInt())).toList();
+        String genres = object.get("genres").getAsJsonObject().entrySet().stream()
+                                    .map(Map.Entry::getKey).collect(Collectors.joining(","));
 
-        return new BookGenre(bookId, genreList);
+        return new BookGenre(bookId, genres);
     }
 }

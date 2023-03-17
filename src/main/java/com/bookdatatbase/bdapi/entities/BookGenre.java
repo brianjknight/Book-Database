@@ -1,16 +1,12 @@
 package com.bookdatatbase.bdapi.entities;
 
-import com.bookdatatbase.bdapi.models.Genre;
-
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -26,18 +22,16 @@ public class BookGenre {
     private Integer bookId;
 
     @Column(name = "genres")
-    @ElementCollection
-    @Embedded
-    private List<Genre> genres;
+    private String genres;
 
     public BookGenre() {}
 
-    public BookGenre(Integer bookId, List<Genre> genres) {
+    public BookGenre(Integer bookId, String genres) {
         this.bookId = bookId;
         this.genres = genres;
     }
 
-    public BookGenre(UUID id, Integer bookId, List<Genre> genres) {
+    public BookGenre(UUID id, Integer bookId, String genres) {
         this.id = id;
         this.bookId = bookId;
         this.genres = genres;
@@ -51,11 +45,11 @@ public class BookGenre {
         return bookId;
     }
 
-    public List<Genre> getGenres() {
+    public String getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(String genres) {
         this.genres = genres;
     }
 

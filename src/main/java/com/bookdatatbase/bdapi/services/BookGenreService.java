@@ -1,7 +1,5 @@
 package com.bookdatatbase.bdapi.services;
 
-import com.bookdatatbase.bdapi.entities.Author;
-import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.entities.BookGenre;
 import com.bookdatatbase.bdapi.exceptions.BookGenreNotFoundException;
 import com.bookdatatbase.bdapi.repositories.BookGenreRepository;
