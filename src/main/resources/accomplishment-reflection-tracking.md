@@ -252,9 +252,14 @@
 
 ### Week 5
 * 3/17/23
-  * Restructure BookGenre so the field List<Genre> with embedded object is simply a String.
-  * Delete Genre model
-  * Reconfigure customer BookGenreDeserializer
+  * BookGenre genres refactoring:
+    * Restructure BookGenre so the field List<Genre> with embedded object is simply a String.
+    * Deleted Genre model
+    * Reconfigured customer BookGenreDeserializer
+  * Book List<Role> for authors refactoring:
+    * After looking at the data further in the list of authors with authorId & role, the role is almost always blank and therefore does not need an embedded object. It can be a List<Integer> of the authorId.
+    * Simpler yet I can concatenate all authorIds and use LIKE operator to see if an author is part of a String of all authors for a boook.
+    * 
 
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
 *Separate enums for CONTAINS_GENRE and CONTAINS_AUTHOR??
