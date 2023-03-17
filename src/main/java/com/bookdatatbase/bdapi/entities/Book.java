@@ -1,6 +1,5 @@
 package com.bookdatatbase.bdapi.entities;
 
-import com.bookdatatbase.bdapi.models.Role;
 import com.bookdatatbase.bdapi.models.Shelf;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -74,9 +72,7 @@ public class Book {
     private String link;
 
     @Column
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
-    @Embedded
-    private List<Role> authors;
+    private String authors;
 
     @Column
     @JsonIgnore
@@ -228,11 +224,11 @@ public class Book {
         this.link = link;
     }
 
-    public List<Role> getAuthors() {
+    public String getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Role> authors) {
+    public void setAuthors(String authors) {
         this.authors = authors;
     }
 
@@ -426,7 +422,7 @@ public class Book {
         private String description;
         private String format;
         private String link;
-        private List<Role> authors;
+        private String authors;
         private String publisher;
         private Integer numPages;
         private String edition_information;
@@ -515,7 +511,7 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withAuthors(List<Role> authors) {
+        public BookBuilder withAuthors(String authors) {
             this.authors = authors;
             return this;
         }

@@ -1,7 +1,6 @@
 package com.bookdatatbase.bdapi.json;
 
 import com.bookdatatbase.bdapi.entities.Book;
-import com.bookdatatbase.bdapi.models.Role;
 import com.bookdatatbase.bdapi.models.Shelf;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -41,10 +40,10 @@ public class BookDeserializer implements JsonDeserializer {
                         .withAuthors(object.get("authors").getAsJsonArray().asList().stream().map(
                                 jsonElement -> {
                                     JsonObject jsonObject = jsonElement.getAsJsonObject();
-                                    Role role = new Role(jsonObject.get("author_id").getAsInt(), jsonObject.get("role").getAsString());
-                                    return role;
+                                    String authorId = jsonObject.get("author_id").getAsString();
+                                    return authorId;
                                 })
-                                .collect(Collectors.toList()))
+                                .collect(Collectors.joining(",")))
                         .withPublisher(object.get("publisher").getAsString())
                         .withNumPages(object.get("num_pages").getAsString().equals("") ? null : object.get("num_pages").getAsInt())
                         .withEditioninformation(object.get("edition_information").getAsString())
