@@ -58,7 +58,7 @@ public class BookGenreSeeder implements CommandLineRunner {
             }
         }
         else {
-            System.out.printf("bd.api database is already populated with %d items", bookGenreService.count());
+            System.out.printf("bd.api database is already populated with %d BookGenres", bookGenreService.count());
         }
     }
 }

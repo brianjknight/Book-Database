@@ -59,7 +59,7 @@ public class BooksSeeder implements CommandLineRunner {
                 e.printStackTrace();
             }
         } else {
-            System.out.printf("bd.api database is already populated with %d items", bookService.count());
+            System.out.printf("bd.api database is already populated with %d Books", bookService.count());
         }
 
     }

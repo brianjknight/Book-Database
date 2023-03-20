@@ -57,7 +57,7 @@ public class AuthorSeeder implements CommandLineRunner {
                 e.printStackTrace();
             }
         } else {
-            System.out.printf("bd.api database is already populated with %d items", authorService.count());
+            System.out.printf("bd.api database is already populated with %d Authors", authorService.count());
         }
 
     }
