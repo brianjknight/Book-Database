@@ -28,7 +28,7 @@ public class BookGenreSeeder implements CommandLineRunner {
     private void seedBookGenreData() {
         if(bookGenreService.count() == 0) {
             int count = 0;
-            int limit = 50;
+            int limit = 100;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(BookGenre.class, new BookGenreDeserializer());

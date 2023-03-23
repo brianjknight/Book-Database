@@ -28,7 +28,7 @@ public class AuthorSeeder implements CommandLineRunner {
     private void seedAuthorData() {
         if(authorService.count() == 0) {
             int count = 0;
-            int limit = 50;
+            int limit = 100;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Author.class, new AuthorDeserializer());

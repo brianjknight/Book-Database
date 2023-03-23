@@ -30,7 +30,7 @@ public class BooksSeeder implements CommandLineRunner {
         if(bookService.count() == 0) {
 
             int count = 0;
-            int dbLimit = 20;
+            int dbLimit = 50;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Book.class, new BookDeserializer());
