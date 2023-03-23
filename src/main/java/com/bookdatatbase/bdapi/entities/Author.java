@@ -42,15 +42,6 @@ public class Author {
         this.ratingsCount = ratingsCount;
     }
 
-    public Author(UUID id, Integer authorId, Double averageRating, Integer textReviewsCount, String name, Integer ratingsCount) {
-        this.id = id;
-        this.authorId = authorId;
-        this.averageRating = averageRating;
-        this.textReviewsCount = textReviewsCount;
-        this.name = name;
-        this.ratingsCount = ratingsCount;
-    }
-
     public UUID getId() {
         return id;
     }
