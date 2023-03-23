@@ -12,15 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
 public class AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    public ResponseEntity<Author> findAuthorById(UUID id) {
-        return ResponseEntity.ok(this.getAuthorById(id));
+    public ResponseEntity<Author> findAuthorByAuthorId(Integer authorId) {
+        return ResponseEntity.ok(this.getAuthorByAuthorId(authorId));
     }
 
     public ResponseEntity<Page<Author>> searchAuthorDatabase(SearchRequest request) {
@@ -37,12 +36,12 @@ public class AuthorService {
         return ResponseEntity.ok(authorRepository.save(author));
     }
 
-    public ResponseEntity<Author> updateAuthor(UUID id, Author author) {
+    public ResponseEntity<Author> updateAuthorByAuthorId(Integer authorId, Author author) {
         if(Objects.isNull(author)) {
             throw new IllegalArgumentException("Author provided cannot be null.");
         }
 
-        Author authorToUpdate = this.getAuthorById(id);
+        Author authorToUpdate = this.getAuthorByAuthorId(authorId);
 
         authorToUpdate.setAverageRating(author.getAverageRating());
         authorToUpdate.setTextReviewsCount(author.getTextReviewsCount());
@@ -52,19 +51,19 @@ public class AuthorService {
         return this.saveAuthor(authorToUpdate);
     }
 
-    public ResponseEntity<String> deleteAuthorById(UUID id) {
-        Author authorToDelete = this.getAuthorById(id);
+    public ResponseEntity<String> deleteAuthorByAuthorId(Integer authorId) {
+        Author authorToDelete = this.getAuthorByAuthorId(authorId);
         authorRepository.delete(authorToDelete);
 
-        return ResponseEntity.ok("Successfully deleted author with ID: " + id.toString());
+        return ResponseEntity.ok("Successfully deleted author with ID: " + authorId.toString());
     }
 
     public long count() {
         return authorRepository.count();
     }
 
-    private Author getAuthorById(UUID id) {
-        return authorRepository.findById(id)
-                .orElseThrow(() -> new AuthorNotFoundException(id));
+    private Author getAuthorByAuthorId(Integer authorId) {
+        return authorRepository.findById(authorId)
+                .orElseThrow(() -> new AuthorNotFoundException(authorId));
     }
 }
