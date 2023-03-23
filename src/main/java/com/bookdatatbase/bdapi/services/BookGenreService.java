@@ -12,15 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
 public class BookGenreService {
     @Autowired
     private BookGenreRepository bookGenreRepository;
 
-    public ResponseEntity<BookGenre> findBookGenreById(UUID id) {
-        return ResponseEntity.ok(this.getBookGenreById(id));
+    public ResponseEntity<BookGenre> findBookGenreByBookId(Integer bookId) {
+        return ResponseEntity.ok(this.getBookGenreByBookId(bookId));
     }
 
     public ResponseEntity<Page<BookGenre>> searchBookGenreDatabase(SearchRequest request) {
@@ -36,29 +35,29 @@ public class BookGenreService {
         return ResponseEntity.ok(bookGenreRepository.save(bookGenre));
     }
 
-    public ResponseEntity<BookGenre> updateBookGenreById(UUID id, BookGenre bookGenre) {
+    public ResponseEntity<BookGenre> updateBookGenreByBookId(Integer bookId, BookGenre bookGenre) {
         if(Objects.isNull(bookGenre)) {
             throw new IllegalArgumentException("BookGenre provided cannot be null.");
         }
 
-        BookGenre bookGenreToUpdate = this.getBookGenreById(id);
+        BookGenre bookGenreToUpdate = this.getBookGenreByBookId(bookId);
         bookGenreToUpdate.setGenres(bookGenre.getGenres());
 
         return this.saveBookGenre(bookGenreToUpdate);
     }
 
-    public ResponseEntity<String> deleteBookGenreById(UUID id) {
-        BookGenre bookGenreToDelete = this.getBookGenreById(id);
+    public ResponseEntity<String> deleteBookGenreByBookId(Integer bookId) {
+        BookGenre bookGenreToDelete = this.getBookGenreByBookId(bookId);
         bookGenreRepository.delete(bookGenreToDelete);
 
-        return ResponseEntity.ok("Successfully deleted BookGenre with ID: " + id);
+        return ResponseEntity.ok("Successfully deleted BookGenre with ID: " + bookId);
     }
 
     public long count() {
         return bookGenreRepository.count();
     }
 
-    private BookGenre getBookGenreById(UUID id) {
-        return bookGenreRepository.findById(id).orElseThrow(() -> new BookGenreNotFoundException(id));
+    private BookGenre getBookGenreByBookId(Integer bookId) {
+        return bookGenreRepository.findById(bookId).orElseThrow(() -> new BookGenreNotFoundException(bookId));
     }
 }

@@ -1,6 +1,5 @@
 package com.bookdatatbase.bdapi.controllers;
 
-import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.entities.BookGenre;
 import com.bookdatatbase.bdapi.search.SearchRequest;
 import com.bookdatatbase.bdapi.services.BookGenreService;
@@ -16,17 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("bookGenres")
 public class BookGenreController {
     @Autowired
     private BookGenreService bookGenreService;
 
-    @GetMapping("{id}")
-    public ResponseEntity<BookGenre> findBookGenreById(@PathVariable UUID id) {
-        return bookGenreService.findBookGenreById(id);
+    @GetMapping("{bookId}")
+    public ResponseEntity<BookGenre> findBookGenreByBookId(@PathVariable Integer bookId) {
+        return bookGenreService.findBookGenreByBookId(bookId);
     }
 
     @PostMapping(value = "/search")
@@ -39,13 +36,13 @@ public class BookGenreController {
         return bookGenreService.saveBookGenre(bookGenre);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<BookGenre> updateBookGenreById(@PathVariable UUID id, @RequestBody BookGenre bookGenre) {
-        return bookGenreService.updateBookGenreById(id, bookGenre);
+    @PutMapping("{bookId}")
+    public ResponseEntity<BookGenre> updateBookGenreByBookId(@PathVariable Integer bookId, @RequestBody BookGenre bookGenre) {
+        return bookGenreService.updateBookGenreByBookId(bookId, bookGenre);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteBookGenreById(@PathVariable UUID id) {
-        return bookGenreService.deleteBookGenreById(id);
+    @DeleteMapping("{bookId}")
+    public ResponseEntity<String> deleteBookGenreByBookId(@PathVariable Integer bookId) {
+        return bookGenreService.deleteBookGenreByBookId(bookId);
     }
 }

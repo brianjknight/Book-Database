@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface BookGenreRepository extends JpaRepository<BookGenre, UUID>, JpaSpecificationExecutor<BookGenre> {
+public interface BookGenreRepository extends JpaRepository<BookGenre, Integer>, JpaSpecificationExecutor<BookGenre> {
 }

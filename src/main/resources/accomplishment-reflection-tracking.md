@@ -286,6 +286,26 @@
     * The issue is the data for each Book does not actually contain an Author object as represented in the table
     * Refactoring again to Book List<Integer> authors which is a list of author ids.
 
+* 3/23/23
+  * Joining tables and database keys problems
+    * I was quick to use UUID as primary for ISBN and then adopting it for Author & BookGenre
+      * Initially I received errors because some ISBNs are formatted with a trailing X which caused problems using Integer type.
+      * Further research shows the X is a roman numeral place-holder. I can substitute "10" for "X" then convert to int keeping unique identifiers.  
+      * Joining tables and keys makes more sense for the layout and simplifies not using UUIDs that are not needed.
+    * PLAN:
+      * Book - convert primary key to its ISBN converted to Integer
+        * Updates needed to annotations, methods, REPO, deserializer (replace X with 10)
+        * Delete UUID id
+      * Author - convert primary key to Integer authorId
+        * Updates needed to annotations, methods, REPO, deserializer 
+        * delete UUID id
+        * Book Integer authorId in Book is already updated to Integer and serves as join column
+      * BookGenre - convert primary key to Integer bookId
+        * Updates needed to annotations, methods, REPO, deserializer
+        * delete UUID
+        * Book Integer bookId already Integer and serves as join column
+
+
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
 *Separate enums for CONTAINS_GENRE and CONTAINS_AUTHOR??
 
