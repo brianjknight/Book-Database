@@ -289,13 +289,9 @@
 * 3/23/23
   * Joining tables and database keys problems
     * I was quick to use UUID as primary for ISBN and then adopting it for Author & BookGenre
-      * Initially I received errors because some ISBNs are formatted with a trailing X which caused problems using Integer type.
-      * Further research shows the X is a roman numeral place-holder. I can substitute "10" for "X" then convert to int keeping unique identifiers.  
       * Joining tables and keys makes more sense for the layout and simplifies not using UUIDs that are not needed.
     * PLAN:
-      * Book - convert primary key to its ISBN converted to Integer
-        * Updates needed to annotations, methods, REPO, deserializer (replace X with 10)
-        * Delete UUID id
+      * Book UUID still needed since some ISBNs are missing in the dataset.
       * Author - convert primary key to Integer authorId
         * Updates needed to annotations, methods, REPO, deserializer 
         * delete UUID id
