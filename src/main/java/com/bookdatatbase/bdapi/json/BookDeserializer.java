@@ -11,7 +11,7 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.stream.Collectors;
 
-public class BookDeserializer implements JsonDeserializer {
+public class BookDeserializer implements JsonDeserializer<Book> {
     @Override
     public Book deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = json.getAsJsonObject();
@@ -37,20 +37,18 @@ public class BookDeserializer implements JsonDeserializer {
                         .withDescription(object.get("description").getAsString())
                         .withFormat(object.get("format").getAsString())
                         .withLink(object.get("link").getAsString())
-                        .withAuthors(object.get("authors").getAsJsonArray().asList().stream().map(
-                                jsonElement -> {
-                                    JsonObject jsonObject = jsonElement.getAsJsonObject();
-                                    String authorId = jsonObject.get("author_id").getAsString();
-                                    return authorId;
-                                })
-                                .collect(Collectors.joining(",")))
+                        .withAuthorId(object.get("authors").getAsJsonArray().asList()
+                                .stream()
+                                .findFirst()
+                                .map(jsonElement -> jsonElement.getAsJsonObject().get("author_id").getAsInt())
+                                .orElse(null))
                         .withPublisher(object.get("publisher").getAsString())
                         .withNumPages(object.get("num_pages").getAsString().equals("") ? null : object.get("num_pages").getAsInt())
-                        .withEditioninformation(object.get("edition_information").getAsString())
+                        .withEditionInformation(object.get("edition_information").getAsString())
                         .withPublicationYear(object.get("publication_year").getAsString().equals("") ? null : object.get("publication_year").getAsInt())
                         .withUrl(object.get("url").getAsString())
                         .withImageUrl(object.get("image_url").getAsString())
-                        .withBookId(object.get("book_id").getAsString())
+                        .withBookId(object.get("book_id").getAsString().equals("") ? null : object.get("book_id").getAsInt())
                         .withRatingsCount(object.get("ratings_count").getAsString().equals("") ? null : object.get("ratings_count").getAsInt())
                         .withTitle(object.get("title").getAsString())
                         .withTitleWithoutSeries(object.get("title_without_series").getAsString())

@@ -89,7 +89,7 @@ public class BookService {
         bookToUpdate.setDescription(book.getDescription());
         bookToUpdate.setFormat(book.getFormat());
         bookToUpdate.setLink(book.getLink());
-        bookToUpdate.setAuthors(book.getAuthors());
+        bookToUpdate.setAuthorId(book.getAuthorId());
         bookToUpdate.setPublisher(book.getPublisher());
         bookToUpdate.setNumPages(book.getNumPages());
         bookToUpdate.setEditionInformation(book.getEditionInformation());

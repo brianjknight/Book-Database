@@ -4,14 +4,7 @@ import com.bookdatatbase.bdapi.models.Shelf;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -62,7 +55,7 @@ public class Book {
     @ElementCollection
     private List<Integer> similarBooks;
 
-    @Column(length = 10000)
+    @Column(length = 5000)
     private String description;
 
     @Column
@@ -72,7 +65,7 @@ public class Book {
     private String link;
 
     @Column
-    private String authors;
+    private Integer authorId;
 
     @Column
     @JsonIgnore
@@ -94,7 +87,7 @@ public class Book {
     private String imageUrl;
 
     @Column(name = "book_id")
-    private String bookId;
+    private Integer bookId;
 
     @Column(name = "ratings_count")
     private Integer ratingsCount;
@@ -224,12 +217,12 @@ public class Book {
         this.link = link;
     }
 
-    public String getAuthors() {
-        return authors;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthors(String authors) {
-        this.authors = authors;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
     public String getPublisher() {
@@ -280,11 +273,11 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
-    public String getBookId() {
+    public Integer getBookId() {
         return bookId;
     }
 
-    public void setBookId(String bookId) {
+    public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
 
@@ -332,7 +325,7 @@ public class Book {
                 Objects.equals(description, book.description) &&
                 Objects.equals(format, book.format) &&
                 Objects.equals(link, book.link) &&
-                Objects.equals(authors, book.authors) &&
+                Objects.equals(authorId, book.authorId) &&
                 Objects.equals(publisher, book.publisher) &&
                 Objects.equals(numPages, book.numPages) &&
                 Objects.equals(editionInformation, book.editionInformation) &&
@@ -362,7 +355,7 @@ public class Book {
                 description,
                 format,
                 link,
-                authors,
+                authorId,
                 publisher,
                 numPages,
                 editionInformation,
@@ -393,7 +386,7 @@ public class Book {
                 ", description='" + description + '\'' +
                 ", format='" + format + '\'' +
                 ", link='" + link + '\'' +
-                ", authors=" + authors +
+                ", authors=" + authorId +
                 ", publisher='" + publisher + '\'' +
                 ", numPages='" + numPages + '\'' +
                 ", edition_information='" + editionInformation + '\'' +
@@ -422,14 +415,14 @@ public class Book {
         private String description;
         private String format;
         private String link;
-        private String authors;
+        private Integer authorId;
         private String publisher;
         private Integer numPages;
         private String edition_information;
         private Integer publicationYear;
         private String url;
         private String imageUrl;
-        private String bookId;
+        private Integer bookId;
         private Integer ratingsCount;
         private String title;
         private String titleWithoutSeries;
@@ -511,8 +504,8 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withAuthors(String authors) {
-            this.authors = authors;
+        public BookBuilder withAuthorId(Integer authorId) {
+            this.authorId = authorId;
             return this;
         }
 
@@ -526,7 +519,7 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withEditioninformation(String edition_information) {
+        public BookBuilder withEditionInformation(String edition_information) {
             this.edition_information = edition_information;
             return this;
         }
@@ -546,7 +539,7 @@ public class Book {
             return this;
         }
 
-        public BookBuilder withBookId(String bookId) {
+        public BookBuilder withBookId(Integer bookId) {
             this.bookId = bookId;
             return this;
         }
@@ -582,7 +575,7 @@ public class Book {
             book.setDescription(description);
             book.setFormat(format);
             book.setLink(link);
-            book.setAuthors(authors);
+            book.setAuthorId(authorId);
             book.setPublisher(publisher);
             book.setNumPages(numPages);
             book.setEditionInformation(edition_information);
