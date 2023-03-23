@@ -307,18 +307,9 @@ HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?
 
 
 ## TODO
-* Determine how to search on a List attribute -> popularShelves
-  * want to use LIKE for genres
-  * count should be GREATER_THAN to ensure it is considered that genre by min number of readers
-  * Should I use that on popularShelves in Book or create Genres class with List<Genres>???
-    * The later will be slower in querying on a different table but is better SQL practice to JOIN tables.
+* **Create endpoint/search to JOIN the tables Books, Authors, & BookGenre**
 * Modify API HTTP responses to include message with status code.
-* After creating Author and Genre entities, incorporate the into the /search endpoint???
 * Create architecture diagram 
-* create the entities, repos, service, controllers, and seeders: 
-  * ~~Book~~
-  * Author
-  * Genres
 * Security protocols with OAuth
 * Improve **scalability**:
   * Implement logging to document performance before and after
