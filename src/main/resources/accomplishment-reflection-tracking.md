@@ -232,7 +232,8 @@
     * When searching "number" fields, null values will be excluded for operators
     * All other fields will return an empty string or list if data is absent.
     * For the scope of this project, NULL & NOT_NULL Operators are not needed.
-  * Created classes and basic methods for Author entity, repo, service, controller, and exception. 
+  * Author
+    * Created classes and basic methods for Author entity, repo, service, controller, and exception. 
 * 3/8/23
   * Created custom ```AuthorDeserializer``` and ```AuthorSeeder``` classes
   * Merged to main branch and pushed to remote.
@@ -271,7 +272,19 @@
 * 3/20/23
   * Endpoints for ```Author```,```Book```, & ```BookGenre``` are all working.
   * Now I want to combine them to search on all 3 with one request.
-
+  * Researching Spring Boot/JPA JOINs, I see I need to migrate 2 Book attribute types
+    * Book String bookId -> Integer bookId to match BookGenre Integer bookId;
+    * Book String authors -> List<Authors> create an Author object with only the author_id
+      * Problem  "object references an unsaved transient instance - save the transient instance before flushing" error"  
+      * Adding @OneToMany(cascade = CascadeType.ALL) annotation helped but created new Authors in the table.
+        * creates duplicate author with null values since author_id is not the primary key
+        * What CascadeType should I use?
+* 3/21/23
+  * Exception when trying to seed database with Book List<Author> authors
+    * org.hibernate.TransientObjectException
+    * By using @OneToMany(cascade = CascadeType.ALL) annotation it runs but saves a new author to the table
+    * The issue is the data for each Book does not actually contain an Author object as represented in the table
+    * Refactoring again to Book List<Integer> authors which is a list of author ids.
 
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
 *Separate enums for CONTAINS_GENRE and CONTAINS_AUTHOR??
