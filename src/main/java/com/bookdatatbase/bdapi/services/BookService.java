@@ -76,26 +76,13 @@ public class BookService {
         Book bookToUpdate = this.getBookById(id);
 
         bookToUpdate.setIsbn(book.getIsbn());
-        bookToUpdate.setTextReviewsCount(book.getTextReviewsCount());
         bookToUpdate.setSeries(book.getSeries());
-        bookToUpdate.setCountryCode(book.getCountryCode());
         bookToUpdate.setLanguageCode(book.getLanguageCode());
-        bookToUpdate.setPopularShelves(book.getPopularShelves());
-        bookToUpdate.setAsin(book.getAsin());
-        bookToUpdate.setIsEbook(book.isEbook());
         bookToUpdate.setAverageRating(book.getAverageRating());
-        bookToUpdate.setKindleAsin(book.getKindleAsin());
-        bookToUpdate.setSimilarBooks(book.getSimilarBooks());
         bookToUpdate.setDescription(book.getDescription());
-        bookToUpdate.setFormat(book.getFormat());
-        bookToUpdate.setLink(book.getLink());
         bookToUpdate.setAuthorId(book.getAuthorId());
-        bookToUpdate.setPublisher(book.getPublisher());
         bookToUpdate.setNumPages(book.getNumPages());
-        bookToUpdate.setEditionInformation(book.getEditionInformation());
         bookToUpdate.setPublicationYear(book.getPublicationYear());
-        bookToUpdate.setUrl(book.getUrl());
-        bookToUpdate.setImageUrl(book.getImageUrl());
         bookToUpdate.setBookId(book.getBookId());
         bookToUpdate.setRatingsCount(book.getRatingsCount());
         bookToUpdate.setTitle(book.getTitle());
