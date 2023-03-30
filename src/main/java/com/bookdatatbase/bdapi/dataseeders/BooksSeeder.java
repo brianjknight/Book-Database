@@ -3,7 +3,6 @@ package com.bookdatatbase.bdapi.dataseeders;
 import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.json.BookDeserializer;
 import com.bookdatatbase.bdapi.services.BookService;
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,13 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
 @Component
 public class BooksSeeder implements CommandLineRunner {
     @Autowired
-    BookService bookService;
+    private BookService bookService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -29,8 +29,9 @@ public class BooksSeeder implements CommandLineRunner {
     private void seedBookData() {
         if(bookService.count() == 0) {
 
-            int count = 0;
-            int dbLimit = 50;
+            int seeded = 0;
+            int notSeeded = 0;
+            int limit = 1000;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Book.class, new BookDeserializer());
@@ -40,24 +41,36 @@ public class BooksSeeder implements CommandLineRunner {
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(
                                 new GZIPInputStream(
-                                        new FileInputStream("data/book-data/goodreads_books_mystery_thriller_crime.json.gz"))));
+                                        new FileInputStream("data/book-data/goodreads_books.json.gz"))));
                 String line = reader.readLine();
 
                 while (line != null) {
-                    count++;
                     Book book = gson.fromJson(line, Book.class);
-                    bookService.saveBook(book);
 
-                    if (count >= dbLimit) {
-                        break;
+                    if(Objects.isNull(book.getRatingsCount()) ||
+                            book.getRatingsCount()<1000 ||
+                            Objects.isNull(book.getDescription()) ||
+                            book.getDescription().equals("")) {
+                        notSeeded++;
+                    }
+                    else {
+                        bookService.saveBook(book);
+                        seeded++;
                     }
 
+                    if (seeded >= limit) {
+                        break;
+                    }
+                    System.out.println("NOT SEEDED = " + notSeeded);
+                    System.out.println("SEEDED = " + seeded);
                     line = reader.readLine();
                 }
             } catch (IOException e) {
                 System.out.println("Could not load book data.");
                 e.printStackTrace();
             }
+            System.out.println("Number of books persisted to database = " + seeded);
+            System.out.println("Number of books not persisted to database = " + notSeeded);
         } else {
             System.out.printf("bd.api database is already populated with %d Books", bookService.count());
         }
