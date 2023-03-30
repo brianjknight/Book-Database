@@ -33,6 +33,14 @@ public class BookService {
         return ResponseEntity.ok(this.getBookById(id));
     }
 
+    public Book findByBookId(Integer bookId) {
+        return bookRepository.findByBookId(bookId);
+    }
+
+    public Book findByAuthorId(Integer authorID) {
+        return bookRepository.findByAuthorId(authorID);
+    }
+
     /**
      * Find all books in the database with pagination default sorted by descending rating.
      * @param offset 0 indexed page number to return results for.

@@ -9,5 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, UUID>, JpaSpecificationExecutor<Book> {
+    public Book findByBookId(Integer bookId);
 
+    public Book findByAuthorId(Integer authorID);
 }

@@ -35,6 +35,16 @@ public class BookController {
         return bookService.findBookById(id);
     }
 
+    @GetMapping("/bookId/{bookId}")
+    public ResponseEntity<Book> findByBookId(@PathVariable Integer bookId) {
+        return ResponseEntity.ok(bookService.findByBookId(bookId));
+    }
+
+    @GetMapping("/authorId/{authorId}")
+    public ResponseEntity<Book> findByAuthorId(@PathVariable Integer authorId) {
+        return ResponseEntity.ok(bookService.findByAuthorId(authorId));
+    }
+
     /**
      * GET mapping for pagination.
      * @param offset page index to return results from.
