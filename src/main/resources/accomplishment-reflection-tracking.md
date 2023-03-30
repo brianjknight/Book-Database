@@ -301,15 +301,55 @@
         * delete UUID
         * Book Integer bookId already Integer and serves as join column
 
+* 3/25/23
+  * Book: unnecessary attributes removed to reduce database size
+    * text_reviews_count, country_code, popular_shelves, asin, is_ebook, kindle_asin, similar_books, format, link, publisher, publication_day, isbn13, publication_month, edition_information, url, image_url, work_id  
+  * Seeded full database ~830K Authors, ~2.4M BookGenres, and 1.7M Books (excluded descriptions over 5000 char and null publication year)
+  * SQL search JOINing tables is looking good:
+    ![](images/sql-join-filter-image.png)  
+
+  * **RETROSPECTIVE**:
+    * BooKGenres (~2.4M items total)
+      * genres field does not contain "science-fiction" or "sci-fi". 
+      * Should I revert to including Book popular-shelves field?
+      * If Books are seeded first, can I seed BookGenre only if the book_id exists in Books?
+    * Books (1.7M items total)
+      * By excluding Book descriptions over 5000 chars and null publication years, ~600K Books were not persisted to the database.
+      * _Increase limit on the length of description._
+      * ~630K Books have <= 10 ratings_count
+      * ~165K Books have no description
+      * ~248K Books have null value for num_pages
+        * Overlap of no description and null num_pages is only ~35K books
+      * ~705K books have a no language_code value
+    * Authors (~830K items total)
+      * ~241K authors have <= to 10 ratings_count
+    * **_I can significantly reduce the size of the databases based on these figures._**
+
+### Week 6
+* 3/28/23
+  * Reducing database size
+    * Books 
+      * Exclude books with than 1000 ratings and no description.
+    * Authors & BookGenres
+      * Exclude if Book is not persisted to database.
+      * PROBLEM initializing Spring components in order???
+      * Create configuration class with @Bean & @DependsOn instead of using @Component?
+    * IS findBookByBookID() even working???
+      * add method to BookController and test in Postman
+
 
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
-*Separate enums for CONTAINS_GENRE and CONTAINS_AUTHOR??
+* Separate enums for CONTAINS_GENRE and CONTAINS_AUTHOR??
 
+* should I create an Operator OR?
 
 ## TODO
 * **Create endpoint/search to JOIN the tables Books, Authors, & BookGenre**
+* Create API documentation (maybe use Swagger or RapidDoc)
 * Modify API HTTP responses to include message with status code.
 * Create architecture diagram 
+* UML workflow diagrams
+* UI diagrams (Try using Figma)
 * Security protocols with OAuth
 * Improve **scalability**:
   * Implement logging to document performance before and after
