@@ -5,7 +5,6 @@ import com.bookdatatbase.bdapi.json.BookDeserializer;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.springframework.aop.framework.adapter.GlobalAdvisorAdapterRegistry;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -68,7 +67,6 @@ public class TestApp {
             System.out.println("bookJSON= " + bookJSON);
             Book book = gson.fromJson(bookJSON, Book.class);
             System.out.println("book= " + book);
-            System.out.println("textReviewCount type = " + book.getTextReviewsCount().getClass());
             System.out.println("");
         }
     }
