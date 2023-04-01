@@ -1,7 +1,6 @@
 package com.bookdatatbase.bdapi.dataseeders;
 
 import com.bookdatatbase.bdapi.entities.Author;
-import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.json.AuthorDeserializer;
 import com.bookdatatbase.bdapi.services.AuthorService;
 import com.bookdatatbase.bdapi.services.BookService;
@@ -20,10 +19,15 @@ import java.util.zip.GZIPInputStream;
 
 @Component
 public class AuthorSeeder implements CommandLineRunner {
+
     @Autowired
     private AuthorService authorService;
-//    @Autowired
-//    private BookService bookService;
+
+    @Autowired
+    private BookService bookService;
+
+    @Autowired
+    private BooksSeeder booksSeeder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -31,10 +35,13 @@ public class AuthorSeeder implements CommandLineRunner {
     }
 
     private void seedAuthorData() {
+
         if(authorService.count() == 0) {
+            long start = System.currentTimeMillis();
+
             int seeded = 0;
             int notSeeded = 0;
-            int limit = 1000;
+            int limit = 10_000;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Author.class, new AuthorDeserializer());
@@ -50,17 +57,12 @@ public class AuthorSeeder implements CommandLineRunner {
                 while (line != null) {
                     Author author = gson.fromJson(line, Author.class);
 
-                    authorService.saveAuthor(author);
-                    seeded++;
-
-//                    Book book = bookService.findByAuthorId(author.getAuthorId());
-
-//                    if(Objects.nonNull(book)) {
-//                        seeded++;
-//                        authorService.saveAuthor(author);
-//                    } else {
-//                        notSeeded++;
-//                    }
+                    if(author.getRatingsCount() >= 1_000 && Objects.nonNull(bookService.findFirstByAuthorId(author.getAuthorId()))) {
+                        seeded++;
+                        authorService.saveAuthor(author);
+                    } else {
+                        notSeeded++;
+                    }
 
                     if (seeded >= limit) {
                         break;
@@ -68,8 +70,21 @@ public class AuthorSeeder implements CommandLineRunner {
 
                     line = reader.readLine();
                 }
+
+                long end = System.currentTimeMillis();
+
+                System.out.println("*".repeat(100));
+                System.out.println("*".repeat(100));
+                System.out.println("*".repeat(100));
+
+                System.out.println("Time in milliseconds to seed Authors = " + (end-start));
                 System.out.println("Number of Authors persisted to the database = " + seeded);
                 System.out.println("Number of Authors NOT persisted to the database = " +  notSeeded);
+
+                System.out.println("*".repeat(100));
+                System.out.println("*".repeat(100));
+                System.out.println("*".repeat(100));
+
             } catch (IOException e) {
                 System.out.println("Could not load author data.");
                 e.printStackTrace();
