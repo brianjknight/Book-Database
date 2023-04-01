@@ -18,6 +18,7 @@ import java.util.zip.GZIPInputStream;
 
 @Component
 public class BooksSeeder implements CommandLineRunner {
+
     @Autowired
     private BookService bookService;
 
@@ -31,7 +32,7 @@ public class BooksSeeder implements CommandLineRunner {
 
             int seeded = 0;
             int notSeeded = 0;
-            int limit = 1000;
+            int limit = 10_000;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Book.class, new BookDeserializer());
@@ -48,7 +49,7 @@ public class BooksSeeder implements CommandLineRunner {
                     Book book = gson.fromJson(line, Book.class);
 
                     if(Objects.isNull(book.getRatingsCount()) ||
-                            book.getRatingsCount()<1000 ||
+                            book.getRatingsCount()<1_000 ||
                             Objects.isNull(book.getDescription()) ||
                             book.getDescription().equals("")) {
                         notSeeded++;
@@ -61,8 +62,7 @@ public class BooksSeeder implements CommandLineRunner {
                     if (seeded >= limit) {
                         break;
                     }
-                    System.out.println("NOT SEEDED = " + notSeeded);
-                    System.out.println("SEEDED = " + seeded);
+
                     line = reader.readLine();
                 }
             } catch (IOException e) {
