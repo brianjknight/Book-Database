@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface BookRepository extends JpaRepository<Book, UUID>, JpaSpecificationExecutor<Book> {
     public Book findByBookId(Integer bookId);
 
-    public Book findByAuthorId(Integer authorID);
+    public Book findFirstByAuthorId(Integer authorID);
 }

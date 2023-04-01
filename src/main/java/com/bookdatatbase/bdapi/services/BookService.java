@@ -37,8 +37,8 @@ public class BookService {
         return bookRepository.findByBookId(bookId);
     }
 
-    public Book findByAuthorId(Integer authorID) {
-        return bookRepository.findByAuthorId(authorID);
+    public Book findFirstByAuthorId(Integer authorID) {
+        return bookRepository.findFirstByAuthorId(authorID);
     }
 
     /**

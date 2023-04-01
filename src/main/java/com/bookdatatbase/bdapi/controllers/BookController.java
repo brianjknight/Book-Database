@@ -40,9 +40,9 @@ public class BookController {
         return ResponseEntity.ok(bookService.findByBookId(bookId));
     }
 
-    @GetMapping("/authorId/{authorId}")
-    public ResponseEntity<Book> findByAuthorId(@PathVariable Integer authorId) {
-        return ResponseEntity.ok(bookService.findByAuthorId(authorId));
+    @GetMapping("/FirstAuthorId/{authorId}")
+    public ResponseEntity<Book> findFirstByAuthorId(@PathVariable Integer authorId) {
+        return ResponseEntity.ok(bookService.findFirstByAuthorId(authorId));
     }
 
     /**
