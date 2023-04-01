@@ -336,6 +336,33 @@
       * Create configuration class with @Bean & @DependsOn instead of using @Component?
     * IS findBookByBookID() even working???
       * add method to BookController and test in Postman
+* 3/30/23
+  * Added and tested endpoints findByBookId() & findByAuthorId()
+  * **_Idea comment out @Component for AuthorSeeder and BookGenreSeeder so that Books seeds first.  
+    Then add, so they can check if Books exist._**
+    * Appears to work at first but then throws error for non-unique result since multiple books have the same author.
+      * Change findByAuthorID() to findFirstByAuthorId()
+    * Working but the bigger issue is now the time it would take. For every Author and BookGenre is first scans the Book data to see if the book exists drastically increasing the seed time.  
+      * Process is sped up by checking for null object directly on bookService method rather than instantiated a new object then checking if it is null.
+    * RESULT (on 1_000 books)
+      * Seeded 1_000 Books, 1_000 matching BookGenres, & 839 Authors (due to multiple books by an author)  
+    * WAS IT ACTUALLY WORKING BUT TAKING TOO LONG???
+      * Seeding Authors with >= 1000 ratingsCount;
+      * When done try SQL query join on books with no author
+    * RETRO
+      * Seeding Books first, then Authors & BookGenres separately while checking if the Book exists reduces Books table and only seeds matching Authors and BookGenres. 
+        * HOWEVER, seeding times increases exponentially needing to check the Books table for every Author & BookGenre
+        * Should I seed all BookGenres instead?
+        * Maybe seed only Authors with 1000+ ratings. It could possibly lead to null results but would find Book/Author combos for most queries.
+          * Are there Books with missing author data??
+      * I think my timing issue of trying to seed all 3 tables in order at the same runtime, is a limitation of Spring Boot vs Spring configuration. 
+        I tried to use ```@DependsOn``` annotation and instantiating dependencies in the seeder so BookSeeder ran first but would get stuck in endless loop.  
+* 4/1/23
+  * 
+      
+
+
+WORK ON SQL JOIN queries TO SEE WHAT AUTHORS ARE MISSING
 
 
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
@@ -349,7 +376,7 @@ HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?
 * Modify API HTTP responses to include message with status code.
 * Create architecture diagram 
 * UML workflow diagrams
-* UI diagrams (Try using Figma)
+* UI diagrams (Try using Whimsical or Figma)
 * Security protocols with OAuth
 * Improve **scalability**:
   * Implement logging to document performance before and after
