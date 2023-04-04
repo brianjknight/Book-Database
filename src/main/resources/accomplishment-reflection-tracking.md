@@ -358,11 +358,12 @@
       * I think my timing issue of trying to seed all 3 tables in order at the same runtime, is a limitation of Spring Boot vs Spring configuration. 
         I tried to use ```@DependsOn``` annotation and instantiating dependencies in the seeder so BookSeeder ran first but would get stuck in endless loop.  
 * 4/1/23
+  * Finished modifying seeders and committed and pushed branch.
+
+### Week 7
+* 4/4/23
   * 
-      
 
-
-WORK ON SQL JOIN queries TO SEE WHAT AUTHORS ARE MISSING
 
 
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
