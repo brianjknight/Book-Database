@@ -3,6 +3,7 @@ package com.bookdatatbase.bdapi.services;
 import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.exceptions.BookNotFoundException;
 import com.bookdatatbase.bdapi.repositories.BookRepository;
+import com.bookdatatbase.bdapi.search.BookSpecification;
 import com.bookdatatbase.bdapi.search.SearchRequest;
 import com.bookdatatbase.bdapi.search.SearchSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +60,13 @@ public class BookService {
      */
     public ResponseEntity<Page<Book>> searchBookDatabase(SearchRequest request) {
         SearchSpecification<Book> specification = new SearchSpecification<>(request);
+        Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
+        return ResponseEntity.ok(bookRepository.findAll(specification, pageable));
+    }
+
+
+    public ResponseEntity<Page<Book>> findBooksWithGenre(SearchRequest request) {
+        Specification<Book> specification = BookSpecification.hasBookWithGenreLike(request.getFilters().get(0).getValue().toString());
         Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
         return ResponseEntity.ok(bookRepository.findAll(specification, pageable));
     }

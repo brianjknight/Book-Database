@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Provider;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -64,6 +65,11 @@ public class BookController {
     @PostMapping(value = "/search")
     public ResponseEntity<Page<Book>> searchBookDatabase(@RequestBody SearchRequest request) {
         return bookService.searchBookDatabase(request);
+    }
+
+    @PostMapping(value = "/booksWithGenre")
+    public ResponseEntity<Page<Book>> findBooksWithGenre(@RequestBody SearchRequest request) {
+        return  bookService.findBooksWithGenre(request);
     }
 
     /**
