@@ -362,7 +362,9 @@
 
 ### Week 7
 * 4/4/23
-  * 
+  * Attempting to create a simple BookSpecification to JOIN Book & BookGenres table
+    * Problem: cannot join on basic types Integer bookId.   
+      I think I need to convert Book field Integer bookId to a BookGenre with bookId 
 
 
 
