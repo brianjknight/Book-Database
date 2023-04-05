@@ -1,6 +1,7 @@
 package com.bookdatatbase.bdapi.json;
 
 import com.bookdatatbase.bdapi.entities.Book;
+import com.bookdatatbase.bdapi.entities.BookGenre;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -29,6 +30,7 @@ public class BookDeserializer implements JsonDeserializer<Book> {
                         .withNumPages(object.get("num_pages").getAsString().equals("") ? null : object.get("num_pages").getAsInt())
                         .withPublicationYear(object.get("publication_year").getAsString().equals("") ? null : object.get("publication_year").getAsInt())
                         .withBookId(object.get("book_id").getAsString().equals("") ? null : object.get("book_id").getAsInt())
+                        .withBookGenre(new BookGenre(object.get("book_id").getAsInt(),null))
                         .withRatingsCount(object.get("ratings_count").getAsString().equals("") ? null : object.get("ratings_count").getAsInt())
                         .withTitle(object.get("title").getAsString())
                         .withTitleWithoutSeries(object.get("title_without_series").getAsString())

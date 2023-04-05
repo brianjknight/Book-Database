@@ -1,11 +1,15 @@
 package com.bookdatatbase.bdapi.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
@@ -46,6 +50,11 @@ public class Book {
 
     @Column(name = "book_id")
     private Integer bookId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_genre")
+    @Embedded
+    private BookGenre bookGenre;
 
     @Column(name = "ratings_count")
     private Integer ratingsCount;
@@ -134,6 +143,14 @@ public class Book {
         this.bookId = bookId;
     }
 
+    public BookGenre getBookGenre() {
+        return bookGenre;
+    }
+
+    public void setBookGenre(BookGenre bookGenre) {
+        this.bookGenre = bookGenre;
+    }
+
     public Integer getRatingsCount() {
         return ratingsCount;
     }
@@ -173,6 +190,7 @@ public class Book {
                 Objects.equals(numPages, book.numPages) &&
                 Objects.equals(publicationYear, book.publicationYear) &&
                 Objects.equals(bookId, book.bookId) &&
+                Objects.equals(bookGenre, book.bookGenre) &&
                 Objects.equals(ratingsCount, book.ratingsCount) &&
                 Objects.equals(title, book.title) &&
                 Objects.equals(titleWithoutSeries, book.titleWithoutSeries);
@@ -190,6 +208,7 @@ public class Book {
                 numPages,
                 publicationYear,
                 bookId,
+                bookGenre,
                 ratingsCount,
                 title,
                 titleWithoutSeries);
@@ -202,13 +221,14 @@ public class Book {
                 ", isbn='" + isbn + '\'' +
                 ", series=" + series +
                 ", languageCode='" + languageCode + '\'' +
-                ", averageRating='" + averageRating + '\'' +
+                ", averageRating=" + averageRating +
                 ", description='" + description + '\'' +
-                ", authors=" + authorId +
-                ", numPages='" + numPages + '\'' +
-                ", publicationYear='" + publicationYear + '\'' +
-                ", bookId='" + bookId + '\'' +
-                ", ratingsCount='" + ratingsCount + '\'' +
+                ", authorId=" + authorId +
+                ", numPages=" + numPages +
+                ", publicationYear=" + publicationYear +
+                ", bookId=" + bookId +
+                ", bookGenre=" + bookGenre +
+                ", ratingsCount=" + ratingsCount +
                 ", title='" + title + '\'' +
                 ", titleWithoutSeries='" + titleWithoutSeries + '\'' +
                 '}';
@@ -224,6 +244,7 @@ public class Book {
         private Integer numPages;
         private Integer publicationYear;
         private Integer bookId;
+        private BookGenre bookGenre;
         private Integer ratingsCount;
         private String title;
         private String titleWithoutSeries;
@@ -280,6 +301,11 @@ public class Book {
             return this;
         }
 
+        public BookBuilder withBookGenre(BookGenre bookGenre) {
+            this.bookGenre = bookGenre;
+            return this;
+        }
+
         public BookBuilder withRatingsCount(Integer ratingsCount) {
             this.ratingsCount = ratingsCount;
             return this;
@@ -306,6 +332,7 @@ public class Book {
             book.setNumPages(numPages);
             book.setPublicationYear(publicationYear);
             book.setBookId(bookId);
+            book.setBookGenre(bookGenre);
             book.setRatingsCount(ratingsCount);
             book.setTitle(title);
             book.setTitleWithoutSeries(titleWithoutSeries);
