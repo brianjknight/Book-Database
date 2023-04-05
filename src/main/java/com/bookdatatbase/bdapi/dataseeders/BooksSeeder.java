@@ -32,7 +32,7 @@ public class BooksSeeder implements CommandLineRunner {
 
             int seeded = 0;
             int notSeeded = 0;
-            int limit = 10_000;
+            int limit = 1_000;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Book.class, new BookDeserializer());

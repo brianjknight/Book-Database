@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
-@Component
+//@Component
 public class AuthorSeeder implements CommandLineRunner {
 
     @Autowired
@@ -41,7 +41,7 @@ public class AuthorSeeder implements CommandLineRunner {
 
             int seeded = 0;
             int notSeeded = 0;
-            int limit = 10_000;
+            int limit = 1_000;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Author.class, new AuthorDeserializer());
