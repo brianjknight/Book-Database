@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Provider;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -67,9 +66,14 @@ public class BookController {
         return bookService.searchBookDatabase(request);
     }
 
+    /**
+     * Search database for books with a genre LIKE the string "value" given in the 'request' input param.
+     * @param request - a SearchRequest that contains list of filters, list of sorts, page number, and number of results per page.
+     * @return Page object of books that have genres containing the string given in request.value
+     */
     @PostMapping(value = "/booksWithGenre")
-    public ResponseEntity<Page<Book>> findBooksWithGenre(@RequestBody SearchRequest request) {
-        return  bookService.findBooksWithGenre(request);
+    public ResponseEntity<Page<Book>> findBooksWithGenreLike(@RequestBody SearchRequest request) {
+        return  bookService.findBooksWithGenreLike(request);
     }
 
     /**
