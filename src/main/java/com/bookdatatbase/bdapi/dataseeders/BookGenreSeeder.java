@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
-@Component
+//@Component
 public class BookGenreSeeder implements CommandLineRunner {
 
     @Autowired
@@ -35,12 +35,12 @@ public class BookGenreSeeder implements CommandLineRunner {
     }
 
     private void seedBookGenreData() {
-        if(bookGenreService.count() == 0) {
+        if(bookGenreService.count() != 0) {
             long start = System.currentTimeMillis();
 
             int seeded = 0;
             int notSeeded = 0;
-            int limit = 10_000;
+            int limit = 1_000;
 
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(BookGenre.class, new BookGenreDeserializer());
