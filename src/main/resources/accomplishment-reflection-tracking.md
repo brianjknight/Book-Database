@@ -365,7 +365,29 @@
   * Attempting to create a simple BookSpecification to JOIN Book & BookGenres table
     * Problem: cannot join on basic types Integer bookId.   
       I think I need to convert Book field Integer bookId to a BookGenre with bookId 
+    * trying to add BookGenre attribute to Book to create table relationship
+      * refactored Integer bookId to BookGenre bookGenre but errors says cannot find bookId field in Book
+      * Try un-staging changes to restore bookId than ADD then the field for BookGenre
+* 4/5/23 
+  * Restored Book and classes to keep Book Integer bookId;
+  * Added field Book BookGenre bookGenre to create table relationship
+    * ```    
+      @OneToOne(cascade = CascadeType.ALL)
+      @JoinColumn(name = "book_genre")
+      @Embedded
+      private BookGenre bookGenre;
+  * BookGenreSeeder needed to be updated to run since items were persisted with cascade all and size won't be 0.  
+     ```if(bookGenreService.count() != 0)```
+  * BookController endpoint /books/booksWithGenre is working.  
 
+
+Up next figure out how to use the list of values in the SearchRequest to match bookGenres on multiple LIKE 
+Can I use generics like in SearchSpecification?
+
+All of this will eventually need done for Author as well. 
+Create table relations by adding Author in Book.  
+Seeder modifications.
+Endpoints.
 
 
 HOW DO I BUILD A PREDICATE WITH CRITERIABUILDER THAT SEARCHES A LIST OF OBJECTS?????  
