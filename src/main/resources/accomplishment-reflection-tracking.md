@@ -380,6 +380,11 @@
      ```if(bookGenreService.count() != 0)```
   * BookController endpoint /books/booksWithGenre is working.  
 
+Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
+### Week 8 
+* 4/19/23
+  * I decided to better understand the project and concepts it would be advantageous to study JPA in more detail.  
+  * [https://www.tutorialspoint.com/jpa/index.htm](https://www.tutorialspoint.com/jpa/index.htm)
 
 Up next figure out how to use the list of values in the SearchRequest to match bookGenres on multiple LIKE 
 Can I use generics like in SearchSpecification?
