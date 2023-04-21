@@ -407,6 +407,9 @@ Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
       * Based on this maybe start with a BookBookGenre Specification then BookAuthor then possibly all three.
 * BookSpecification refactored to match SearchSpecification format. It is now working on a list of genres but only for the first given filter.  
 
+
+Next up need to figure out resolving merge conflicts in IntelliJ to merge BD-25
+
 Up next figure out how to use the list of values in the SearchRequest to match bookGenres on multiple LIKE 
 Can I use generics like in SearchSpecification?
 
