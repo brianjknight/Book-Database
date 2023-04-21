@@ -70,8 +70,8 @@ public class BookService {
      * @param request SearchRequest object consists of zero to many Filters and Sorts as well as page and size for pagination.
      * @return Pageable object of Books filtered by the given criteria (only works on the first Filter and its 'value' attribute.
      */
-    public ResponseEntity<Page<Book>> findBooksWithGenreLike(SearchRequest request) {
-        Specification<Book> specification = BookSpecification.hasBookWithGenreLike(request.getFilters().get(0).getValue().toString());
+    public ResponseEntity<Page<Book>> findBooksWithGenresLike(SearchRequest request) {
+        Specification<Book> specification = new BookSpecification<>(request);
         Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
         return ResponseEntity.ok(bookRepository.findAll(specification, pageable));
     }

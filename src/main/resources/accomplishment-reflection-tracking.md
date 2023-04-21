@@ -405,7 +405,7 @@ Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
     * Or can I Join them all and return results only for given filters
     * I have a BookSpecification with successfully joined BookGenre and Book with a single LIKE genre.
       * Based on this maybe start with a BookBookGenre Specification then BookAuthor then possibly all three.
-
+* BookSpecification refactored to match SearchSpecification format. It is now working on a list of genres but only for the first given filter.  
 
 Up next figure out how to use the list of values in the SearchRequest to match bookGenres on multiple LIKE 
 Can I use generics like in SearchSpecification?

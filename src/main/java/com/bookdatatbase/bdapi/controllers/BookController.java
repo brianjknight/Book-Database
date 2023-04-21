@@ -71,9 +71,9 @@ public class BookController {
      * @param request - a SearchRequest that contains list of filters, list of sorts, page number, and number of results per page.
      * @return Page object of books that have genres containing the string given in request.value
      */
-    @PostMapping(value = "/booksWithGenre")
-    public ResponseEntity<Page<Book>> findBooksWithGenreLike(@RequestBody SearchRequest request) {
-        return  bookService.findBooksWithGenreLike(request);
+    @PostMapping(value = "/booksWithGenres")
+    public ResponseEntity<Page<Book>> findBooksWithGenresLike(@RequestBody SearchRequest request) {
+        return  bookService.findBooksWithGenresLike(request);
     }
 
     /**
