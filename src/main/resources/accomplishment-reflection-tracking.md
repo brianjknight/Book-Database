@@ -380,6 +380,32 @@
      ```if(bookGenreService.count() != 0)```
   * BookController endpoint /books/booksWithGenre is working.  
 
+Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
+### Week 8
+* 4/19/23
+  * I decided to better understand the project and concepts it would be advantageous to study JPA in more detail.
+  * [https://www.tutorialspoint.com/jpa/index.htm](https://www.tutorialspoint.com/jpa/index.htm)
+* 4/20/23
+  * Read JPA tutorial from Tutorials Point from link above. It was helpful but want a better understanding of Criteria API
+  * Another tutorial source for JPA includes Criteria API:   
+    [https://www.javatpoint.com/jpa-criteria-api-introduction](https://www.javatpoint.com/jpa-criteria-api-introduction)
+    * I'm starting to get a better understanding of JPA. My API is handling certain aspects like EntityManager for me which is why I have not seen them.
+  * Next up I want to research more on how Predicates and CriteriaBuilder work.
+* 4/21/23
+  * I walked through JPA documentation and the [Spring Boot Data JPA resource]( https://blog.piinalpin.com/2022/04/searching-and-filtering-using-jpa-specification/) that I used.
+    * BookService search the repo with a SearchSpecification
+    * The SearchSpecification toPredicate() method creates an initial predicate always evaluating to TRUE initially to return all items.
+      * ```Predicate predicate = cb.equal(cb.literal(Boolean.TRUE), Boolean.TRUE);```
+      * Then for each FilterRequest, that predicate is passed into an Enum Operator and **returns a conjunction** of existing predicates and new predicate based on the current FilterRequest.
+  * So maybe I can create JoinSearchSpecification in a similar manner
+    * Would I need to create separate Specifications for each table combination?:
+      * JoinBookBookGenreSpecification
+      * JoinBookAuthorSpecification
+      * JoinBookBookGenreAuthorSpecification
+    * Or can I Join them all and return results only for given filters
+    * I have a BookSpecification with successfully joined BookGenre and Book with a single LIKE genre.
+      * Based on this maybe start with a BookBookGenre Specification then BookAuthor then possibly all three.
+
 
 Up next figure out how to use the list of values in the SearchRequest to match bookGenres on multiple LIKE 
 Can I use generics like in SearchSpecification?
