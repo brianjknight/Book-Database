@@ -407,6 +407,12 @@ Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
       * Based on this maybe start with a BookBookGenre Specification then BookAuthor then possibly all three.
 * BookSpecification refactored to match SearchSpecification format. It is now working on a list of genres but only for the first given filter.  
 
+### Week 8
+* 4/25/23
+  * BookSpecification is only joining Book & BookGenre but is a good working model. 
+    * Refactor to BookBookGenreSpecification
+    * Use the knowledge to try joining the 3 tables Book, BookGenre, and Author in SearchSpecification
+  * 
 
 Next up need to figure out resolving merge conflicts in IntelliJ to merge BD-25
 
