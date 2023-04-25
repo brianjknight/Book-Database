@@ -411,8 +411,41 @@ Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
 * 4/25/23
   * BookSpecification is only joining Book & BookGenre but is a good working model. 
     * Refactor to BookBookGenreSpecification
-    * Use the knowledge to try joining the 3 tables Book, BookGenre, and Author in SearchSpecification
-  * 
+  * Join Book-Author same as Book-BookGenre
+    * running into issues with JPA/Postgres due to multiple books have the same author:
+      * org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "authors_pkey"
+      * Adding @ManyToOne annotation does not solve like I hoped. Tried different Cascade types to no avail.
+      * SOLUTION 
+        * Do I need to go back to using UUID primary keys for Author?
+          * Why did I remove that to begin with?
+          * I was initially trying to Join tables on Integer fields but had to change that to Join on BookGenre and Author objects.  
+          * My concern is finding Authors and BookGenres by authorId and bookId which will then not be a key.  
+            So every row would need to be scanned, BUT if I'm running a join with those associated objects w/ UUIDs, Will I even be using Author findAuthorByAuthorId & BookGenre findBookGenreByBookId?   
+          * I don't think so. The seeders use BookServiceBook findByBookId & Book findFirstByAuthorId.
+        * Could I then seed Books, delete all generated Authors, then seed Authors?
+          * No because the key constraints now prevent that 
+          * SO, for this to work, when seeding Authors and looking up bookService.findFirstByAuthorId():
+            I need to keep track of the book object.  
+            Save the author which generates a new UUID.  
+            Then update the book with that author and save the book again.
+            Book & Author will now have the relation.
+            Finally delete Authors with null fields.  
+
+          Game Plan:
+          1. Refactor Author to use UUID id as primary key
+             1. Can I undo previous commit?
+             2. I think that will be too messy but can refactor back to UUID using that branch.
+             3. Will need to update the controller and service
+                1. add methods findById
+                2. keep existing findByAuthorId
+          2. Seed Books
+          3. Update AuthorSeeder to save book with new Author
+          4. Delete Authors with null data
+          5. Repeat for BookGenre?
+
+
+Use the knowledge to try joining the 3 tables Book, BookGenre, and Author in SearchSpecification
+ 
 
 Next up need to figure out resolving merge conflicts in IntelliJ to merge BD-25
 
