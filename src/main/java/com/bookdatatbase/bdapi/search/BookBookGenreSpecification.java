@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 @AllArgsConstructor
-public class BookSpecification<Book> implements Specification<Book> {
+public class BookBookGenreSpecification<Book> implements Specification<Book> {
 
     @Serial
     private static final long serialVersionUID = 2513496916258688337L;
