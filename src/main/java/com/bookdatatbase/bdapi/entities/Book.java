@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
@@ -39,8 +40,13 @@ public class Book {
     @Column(length = 15000)
     private String description;
 
-    @Column
+    @Column(name = "author_id")
     private Integer authorId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author")
+    @Embedded
+    private Author author;
 
     @Column(name = "num_pages")
     private Integer numPages;
@@ -119,6 +125,14 @@ public class Book {
         this.authorId = authorId;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     public Integer getNumPages() {
         return numPages;
     }
@@ -187,6 +201,7 @@ public class Book {
                 Objects.equals(averageRating, book.averageRating) &&
                 Objects.equals(description, book.description) &&
                 Objects.equals(authorId, book.authorId) &&
+                Objects.equals(author, book.author) &&
                 Objects.equals(numPages, book.numPages) &&
                 Objects.equals(publicationYear, book.publicationYear) &&
                 Objects.equals(bookId, book.bookId) &&
@@ -205,6 +220,7 @@ public class Book {
                 averageRating,
                 description,
                 authorId,
+                author,
                 numPages,
                 publicationYear,
                 bookId,
@@ -224,6 +240,7 @@ public class Book {
                 ", averageRating=" + averageRating +
                 ", description='" + description + '\'' +
                 ", authorId=" + authorId +
+                ", author=" + author +
                 ", numPages=" + numPages +
                 ", publicationYear=" + publicationYear +
                 ", bookId=" + bookId +
@@ -241,6 +258,7 @@ public class Book {
         private Double averageRating;
         private String description;
         private Integer authorId;
+        private Author author;
         private Integer numPages;
         private Integer publicationYear;
         private Integer bookId;
@@ -283,6 +301,11 @@ public class Book {
 
         public BookBuilder withAuthorId(Integer authorId) {
             this.authorId = authorId;
+            return this;
+        }
+
+        public BookBuilder withAuthor(Author author) {
+            this.author = author;
             return this;
         }
 
@@ -329,6 +352,7 @@ public class Book {
             book.setAverageRating(averageRating);
             book.setDescription(description);
             book.setAuthorId(authorId);
+            book.setAuthor(author);
             book.setNumPages(numPages);
             book.setPublicationYear(publicationYear);
             book.setBookId(bookId);

@@ -1,6 +1,7 @@
 package com.bookdatatbase.bdapi.entities;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Authors")
+@Embeddable
 public class Author {
 
     @Id
