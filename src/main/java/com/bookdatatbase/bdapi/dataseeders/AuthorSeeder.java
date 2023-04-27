@@ -1,6 +1,7 @@
 package com.bookdatatbase.bdapi.dataseeders;
 
 import com.bookdatatbase.bdapi.entities.Author;
+import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.json.AuthorDeserializer;
 import com.bookdatatbase.bdapi.services.AuthorService;
 import com.bookdatatbase.bdapi.services.BookService;
@@ -15,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 
 //@Component
@@ -36,62 +38,67 @@ public class AuthorSeeder implements CommandLineRunner {
 
     private void seedAuthorData() {
 
-        if(authorService.count() == 0) {
-            long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
 
-            int seeded = 0;
-            int notSeeded = 0;
-            int limit = 1_000;
+        int seeded = 0;
+        int notSeeded = 0;
+        int limit = 1_000;
 
-            GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(Author.class, new AuthorDeserializer());
-            Gson gson = builder.create();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Author.class, new AuthorDeserializer());
+        Gson gson = builder.create();
 
-            try {
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(
-                                new GZIPInputStream(
-                                        new FileInputStream("data/author-data/goodreads_book_authors.json.gz"))));
-                String line = reader.readLine();
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            new GZIPInputStream(
+                                    new FileInputStream("data/author-data/goodreads_book_authors.json.gz"))));
+            String line = reader.readLine();
 
-                while (line != null) {
-                    Author author = gson.fromJson(line, Author.class);
+            while (line != null) {
+                Author newAuthor = gson.fromJson(line, Author.class);
+                Author newAuthorWithUUID = new Author(UUID.randomUUID(), newAuthor.getAuthorId(), newAuthor.getAverageRating(), newAuthor.getTextReviewsCount(), newAuthor.getName(), newAuthor.getRatingsCount());
 
-                    if(author.getRatingsCount() >= 1_000 && Objects.nonNull(bookService.findFirstByAuthorId(author.getAuthorId()))) {
-                        seeded++;
-                        authorService.saveAuthor(author);
-                    } else {
-                        notSeeded++;
-                    }
+                Book book = bookService.findFirstByAuthorId(newAuthor.getAuthorId());
 
-                    if (seeded >= limit) {
-                        break;
-                    }
-
-                    line = reader.readLine();
+                if(newAuthor.getRatingsCount() >= 1_000 && Objects.nonNull(book)) {
+                    UUID oldAuthorId = book.getAuthor().getId();
+                    book.setAuthor(newAuthorWithUUID);
+                    bookService.saveBook(book);
+                    authorService.deleteByAuthorId(oldAuthorId);
+                    seeded++;
+                } else {
+                    notSeeded++;
                 }
 
-                long end = System.currentTimeMillis();
+                if (seeded >= limit) {
+                    break;
+                }
 
-                System.out.println("*".repeat(100));
-                System.out.println("*".repeat(100));
-                System.out.println("*".repeat(100));
-
-                System.out.println("Time in milliseconds to seed Authors = " + (end-start));
-                System.out.println("Number of Authors persisted to the database = " + seeded);
-                System.out.println("Number of Authors NOT persisted to the database = " +  notSeeded);
-
-                System.out.println("*".repeat(100));
-                System.out.println("*".repeat(100));
-                System.out.println("*".repeat(100));
-
-            } catch (IOException e) {
-                System.out.println("Could not load author data.");
-                e.printStackTrace();
+                line = reader.readLine();
             }
-        } else {
-            System.out.printf("bd.api database is already populated with %d Authors", authorService.count());
+
+
+
+        } catch (IOException e) {
+            System.out.println("Could not load author data.");
+            e.printStackTrace();
         }
+
+        long end = System.currentTimeMillis();
+
+        System.out.println("*".repeat(100));
+        System.out.println("*".repeat(100));
+        System.out.println("*".repeat(100));
+
+        System.out.println("Time in milliseconds to seed Authors = " + (end-start));
+        System.out.println("Number of Authors persisted to the database = " + seeded);
+        System.out.println("Number of Authors NOT persisted to the database = " +  notSeeded);
+
+        System.out.println("*".repeat(100));
+        System.out.println("*".repeat(100));
+        System.out.println("*".repeat(100));
+
 
     }
 }
