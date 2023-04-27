@@ -15,15 +15,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("authors")
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping("{authorId}")
-    public ResponseEntity<Author> findAuthorByAuthorId(@PathVariable Integer authorId) {
-        return authorService.findAuthorByAuthorId(authorId);
+    @GetMapping("{id}")
+    public ResponseEntity<Author> findById(@PathVariable UUID id) {
+        return authorService.findById(id);
+    }
+
+    @GetMapping("authorId/{authorId}")
+    public ResponseEntity<Author> findByAuthorId(@PathVariable Integer authorId) {
+        return ResponseEntity.ok(authorService.findByAuthorId(authorId));
     }
 
     @PostMapping(value = "/search")
@@ -36,13 +43,13 @@ public class AuthorController {
         return authorService.saveAuthor(author);
     }
 
-    @PutMapping("{authorId}")
-    public ResponseEntity<Author> updateAuthorByAuthorId(@PathVariable Integer authorId, @RequestBody Author author) {
-        return authorService.updateAuthorByAuthorId(authorId, author);
+    @PutMapping("{id}")
+    public ResponseEntity<Author> updateAuthorById(@PathVariable UUID id, @RequestBody Author author) {
+        return authorService.updateAuthorById(id, author);
     }
 
-    @DeleteMapping("{authorId}")
-    public ResponseEntity<String> deleteAuthorByAuthorId(@PathVariable Integer authorId) {
-        return authorService.deleteAuthorByAuthorId(authorId);
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteAuthorById(@PathVariable UUID id) {
+        return authorService.deleteByAuthorId(id);
     }
 }
