@@ -29,6 +29,7 @@ public class BooksSeeder implements CommandLineRunner {
 
     private void seedBookData() {
         if(bookService.count() == 0) {
+            long start = System.currentTimeMillis();
 
             int seeded = 0;
             int notSeeded = 0;
@@ -65,12 +66,27 @@ public class BooksSeeder implements CommandLineRunner {
 
                     line = reader.readLine();
                 }
+
+
+
             } catch (IOException e) {
                 System.out.println("Could not load book data.");
                 e.printStackTrace();
             }
-            System.out.println("Number of books persisted to database = " + seeded);
-            System.out.println("Number of books not persisted to database = " + notSeeded);
+
+            long end = System.currentTimeMillis();
+            System.out.println("*".repeat(100));
+            System.out.println("*".repeat(100));
+            System.out.println("*".repeat(100));
+
+            System.out.println("Time in milliseconds to seed Books = " + (end-start));
+            System.out.println("Number of Books persisted to the database = " + seeded);
+            System.out.println("Number of Books NOT persisted to the database = " +  notSeeded);
+
+            System.out.println("*".repeat(100));
+            System.out.println("*".repeat(100));
+            System.out.println("*".repeat(100));
+
         } else {
             System.out.printf("bd.api database is already populated with %d Books", bookService.count());
         }

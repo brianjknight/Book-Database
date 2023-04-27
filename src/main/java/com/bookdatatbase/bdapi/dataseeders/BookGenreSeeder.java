@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
-//@Component
+@Component
 public class BookGenreSeeder implements CommandLineRunner {
 
     @Autowired
@@ -35,62 +35,57 @@ public class BookGenreSeeder implements CommandLineRunner {
     }
 
     private void seedBookGenreData() {
-        if(bookGenreService.count() != 0) {
-            long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
 
-            int seeded = 0;
-            int notSeeded = 0;
-            int limit = 1_000;
+        int seeded = 0;
+        int notSeeded = 0;
+        int limit = 1_000;
 
-            GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(BookGenre.class, new BookGenreDeserializer());
-            Gson gson = builder.create();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(BookGenre.class, new BookGenreDeserializer());
+        Gson gson = builder.create();
 
-            try {
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(
-                                new GZIPInputStream(
-                                        new FileInputStream("data/genre-data/goodreads_book_genres_initial.json.gz"))));
-                String line = reader.readLine();
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            new GZIPInputStream(
+                                    new FileInputStream("data/genre-data/goodreads_book_genres_initial.json.gz"))));
+            String line = reader.readLine();
 
-                while (line != null) {
-                    BookGenre bookGenre = gson.fromJson(line, BookGenre.class);
+            while (line != null) {
+                BookGenre bookGenre = gson.fromJson(line, BookGenre.class);
 
-                    if(Objects.nonNull(bookService.findByBookId(bookGenre.getBookId()))) {
-                        seeded++;
-                        bookGenreService.saveBookGenre(bookGenre);
-                    } else {
-                        notSeeded++;
-                    }
-
-                    if (seeded >= limit) {
-                        break;
-                    }
-
-                    line = reader.readLine();
+                if(Objects.nonNull(bookService.findByBookId(bookGenre.getBookId()))) {
+                    seeded++;
+                    bookGenreService.saveBookGenre(bookGenre);
+                } else {
+                    notSeeded++;
                 }
 
-                long end = System.currentTimeMillis();
+                if (seeded >= limit) {
+                    break;
+                }
 
-                System.out.println("*".repeat(100));
-                System.out.println("*".repeat(100));
-                System.out.println("*".repeat(100));
-
-                System.out.println("Time in milliseconds to seed BookGenres = " + (end-start));
-                System.out.println("Number of BookGenres persisted to the database = " + seeded);
-                System.out.println("Number of BookGenres NOT persisted to the database = " + notSeeded);
-
-                System.out.println("*".repeat(100));
-                System.out.println("*".repeat(100));
-                System.out.println("*".repeat(100));
-
-            } catch (IOException e) {
-                System.out.println("Could not load book genre data.");
-                e.printStackTrace();
+                line = reader.readLine();
             }
-        }
-        else {
-            System.out.printf("bd.api database is already populated with %d BookGenres", bookGenreService.count());
+
+            long end = System.currentTimeMillis();
+
+            System.out.println("*".repeat(100));
+            System.out.println("*".repeat(100));
+            System.out.println("*".repeat(100));
+
+            System.out.println("Time in milliseconds to seed BookGenres = " + (end-start));
+            System.out.println("Number of BookGenres persisted to the database = " + seeded);
+            System.out.println("Number of BookGenres NOT persisted to the database = " + notSeeded);
+
+            System.out.println("*".repeat(100));
+            System.out.println("*".repeat(100));
+            System.out.println("*".repeat(100));
+
+        } catch (IOException e) {
+            System.out.println("Could not load book genre data.");
+            e.printStackTrace();
         }
     }
 }
