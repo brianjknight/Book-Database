@@ -441,13 +441,23 @@ Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
           2. Seed Books
           3. Update AuthorSeeder to save book with new Author
           4. Delete Authors with null data
-          5. Repeat for BookGenre?
+          6. Repeat for BookGenre?
+* 4/26/23
+  * Successfully refactored Author to use UUID as primary key.
+  * Seeding Database:
+    1. Author & BookGenre @Component must be commented out.
+    2. Run Spring Boot API to seed Books
+    3. Uncomment Author @Component
+       1. AuthorSeeder now calls bookService.saveBook() with the newly created book and UUID which in turn persists to the Author table since the relation is established.  
+       2. Call to authorService.deleteAuthorId() for the old author which was persisted with null data when seeding Books.
+    4. Comment out Author @Component again
+    5. Uncomment BookGenre @Component
+    6. Run Spring Boot API to seed BookGenres
+    7. Comment out BookGenre @Component again
 
 
 Use the knowledge to try joining the 3 tables Book, BookGenre, and Author in SearchSpecification
  
-
-Next up need to figure out resolving merge conflicts in IntelliJ to merge BD-25
 
 Up next figure out how to use the list of values in the SearchRequest to match bookGenres on multiple LIKE 
 Can I use generics like in SearchSpecification?
