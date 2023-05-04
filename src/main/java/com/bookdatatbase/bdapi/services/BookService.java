@@ -140,7 +140,7 @@ public class BookService {
      */
     private Book getBookById(UUID id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(id.toString()));
+                .orElseThrow(() -> new BookNotFoundException(id));
     }
 
 }
