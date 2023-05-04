@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Spring Boot controller class for Books table.
+ * Includes methods for basic CRUD operations as well as a SearchRequest which can include 0 to many filters and sort criteria.
+ */
+
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -35,11 +40,22 @@ public class BookController {
         return bookService.findBookById(id);
     }
 
+    /**
+     * Get mapping for finding a book by its bookId which is different from id.
+     * bookId is a foreign key of the BookGenre table.
+     * @param bookId specific bookId you are trying to find.
+     * @return Response entity of Book with matching bookId.
+     */
     @GetMapping("/bookId/{bookId}")
     public ResponseEntity<Book> findByBookId(@PathVariable Integer bookId) {
         return ResponseEntity.ok(bookService.findByBookId(bookId));
     }
 
+    /**
+     * GET mapping to find the FIRST book containing a given authorId
+     * @param authorId id of the author you are looking for.
+     * @return Response entity of Book with matching author.
+     */
     @GetMapping("/FirstAuthorId/{authorId}")
     public ResponseEntity<Book> findFirstByAuthorId(@PathVariable Integer authorId) {
         return ResponseEntity.ok(bookService.findFirstByAuthorId(authorId));
