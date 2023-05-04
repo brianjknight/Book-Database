@@ -13,6 +13,13 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * POJO containing fields for filtering database queries.
+ * key is the field of the object to use for comparison.
+ * Operator is the Operator enum for comparison. (See Operator enum in 'enums' package.)
+ * FieldType is the FieldType enum for parsing the string to proper type. (See FieldType enum in 'enums' package.)
+ * value, valueTo, & values are given fields to compare to for querying the database.
+ */
 @Data
 @Builder
 @NoArgsConstructor

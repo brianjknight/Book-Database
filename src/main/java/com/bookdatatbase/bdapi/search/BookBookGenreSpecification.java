@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Custom Specification class for joining the Book and BookGenres table.
+ * Ultimately this will be phased out but was used for learning in joining 2 tables prior to also joining the Authors table.
+ * @param <Book> Book entity.
+ */
 @AllArgsConstructor
 public class BookBookGenreSpecification<Book> implements Specification<Book> {
 
@@ -25,6 +30,13 @@ public class BookBookGenreSpecification<Book> implements Specification<Book> {
 
     private final transient SearchRequest request;
 
+    /**
+     * Method to return a predicate that returns books that meet search criteria matching bookGenres that contain 0 to many keywords.
+     * @param root the root object Book to join.
+     * @param query
+     * @param cb
+     * @return
+     */
     @Override
     public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         Predicate predicate = cb.equal(cb.literal(Boolean.TRUE), Boolean.TRUE);

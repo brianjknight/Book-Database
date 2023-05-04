@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * POJO object containing the filters, sorts, and pageable page & size combined to pass as one object for querying the database.
+ */
 @Data
 @Builder
 @NoArgsConstructor

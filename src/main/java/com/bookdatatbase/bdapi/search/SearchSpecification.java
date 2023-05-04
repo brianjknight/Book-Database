@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * A JPA specification which converts the filter and sort criteria from a SearchRequest object to return a predicate.
+ * The predicate is used directly with the JPA repository in querying tables.
+ * @param <T>
+ */
 @Slf4j
 @AllArgsConstructor
 public class SearchSpecification<T> implements Specification<T> {

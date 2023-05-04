@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * POJO containing a key of the field to be sorted and direction on which to sort the results.
+ */
 @Data
 @Builder
 @NoArgsConstructor
