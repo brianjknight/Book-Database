@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Spring Boot service class for Author.
+ * This is a layer for handling requests received by the controller and passed to the repository.
+ * Includes corresponding CRUD operations for handling each controller method.
+ */
 @Service
 public class AuthorService {
     @Autowired

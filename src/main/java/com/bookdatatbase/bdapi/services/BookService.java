@@ -20,6 +20,11 @@ import java.util.UUID;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
+/**
+ * Spring Boot service class for Book.
+ * This is a layer for handling requests received by the controller and passed to the repository.
+ * Includes corresponding CRUD operations for handling each controller method.
+ */
 @Service
 public class BookService {
 

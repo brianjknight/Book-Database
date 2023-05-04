@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * Spring Boot service class for BookGenre.
+ * This is a layer for handling requests received by the controller and passed to the repository.
+ * Includes corresponding CRUD operations for handling each controller method.
+ */
 @Service
 public class BookGenreService {
     @Autowired
