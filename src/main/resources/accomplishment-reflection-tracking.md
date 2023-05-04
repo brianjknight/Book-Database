@@ -455,6 +455,10 @@ Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
     6. Run Spring Boot API to seed BookGenres
     7. Comment out BookGenre @Component again
 
+### Week 8
+* 5/4/23
+  * Add Javadocs to all the classes minus a few that already had them.
+
 
 Use the knowledge to try joining the 3 tables Book, BookGenre, and Author in SearchSpecification
  
