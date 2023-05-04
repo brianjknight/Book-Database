@@ -10,6 +10,10 @@ import javax.persistence.Table;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ *POJO for Author entity and table.
+ */
+
 @Entity
 @Table(name = "Authors")
 @Embeddable

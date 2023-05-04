@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * POJO for Book entity and table.
+ */
+
 @Entity
 @Table(name = "Books")
 public class Book {
@@ -251,6 +255,9 @@ public class Book {
                 '}';
     }
 
+    /**
+     * Builder pattern for instantiating a Book object.
+     */
     public static final class BookBuilder {
         private String isbn;
         private List<Integer> series;

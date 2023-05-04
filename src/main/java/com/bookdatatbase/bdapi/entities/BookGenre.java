@@ -7,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
+/**
+ * POJO for BookGenre entity and table.
+ */
+
 @Entity
 @Table(name = "BookGenres")
 @Embeddable

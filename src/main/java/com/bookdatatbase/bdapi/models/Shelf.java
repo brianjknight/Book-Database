@@ -3,6 +3,10 @@ package com.bookdatatbase.bdapi.models;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
+/**
+ * POJO for a Shelf object which is an embedded type within the Book class.
+ */
+
 @Embeddable
 public class Shelf {
     private Integer count;
