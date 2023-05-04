@@ -9,6 +9,11 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
+/**
+ * Customer deserializer for an Author object.
+ * The dataset pulled from the Goodreads project is in JSON format with all string types.
+ * This deserializer converts strings to proper data types.
+ */
 public class AuthorDeserializer implements JsonDeserializer<Author> {
     @Override
     public Author deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
