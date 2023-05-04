@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ * Spring Boot repository interface for Author entities.
+ */
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, UUID>, JpaSpecificationExecutor<Author> {
     public Author findByAuthorId(Integer authorId);

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ * Spring Boot repository interface for the Book entity.
+ */
 @Repository
 public interface BookRepository extends JpaRepository<Book, UUID>, JpaSpecificationExecutor<Book> {
     public Book findByBookId(Integer bookId);
