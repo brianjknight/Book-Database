@@ -17,6 +17,12 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
+/**
+ * Class to seed BookGenre data implementing CommandLineRunner and @Component annotation to automatically seed the BookGenre table.
+ * This is set up to limit the size of the database by only seeding BookGenres which have a Book with matching bookId persisted in the Books table.
+ *
+ */
+
 @Component
 public class BookGenreSeeder implements CommandLineRunner {
 

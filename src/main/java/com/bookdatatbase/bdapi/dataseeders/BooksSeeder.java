@@ -16,6 +16,14 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
+/**
+ * Class to seed Book data implementing CommandLineRunner and @Component annotation to automatically seed the Book table.
+ * This is set up to limit the size of the database by:
+ *      setting a limit for number of items seeded
+ *      skipping null items
+ *      skipping Books that do not have at least 1,000 ratings.
+ */
+
 @Component
 public class BooksSeeder implements CommandLineRunner {
 

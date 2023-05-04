@@ -19,6 +19,13 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 
+/**
+ * Class to seed Author data implementing CommandLineRunner and @Component annotation to automatically seed the Author table.
+ * This is set up to limit the size of the database by:
+ *      setting a limit for number of items seeded
+ *      skipping null items
+ *      seeding authors with a minimum number of ratings
+ */
 //@Component
 public class AuthorSeeder implements CommandLineRunner {
 
