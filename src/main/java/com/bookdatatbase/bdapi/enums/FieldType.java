@@ -5,6 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Enum class to designate and return a specific type given a string value.
+ * Available types to parse into from a String include Boolean, Character, Date, Double, Integer, Long, and String.
+ */
 @Slf4j
 public enum FieldType {
 

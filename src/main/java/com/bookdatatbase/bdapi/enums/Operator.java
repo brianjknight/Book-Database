@@ -10,6 +10,12 @@ import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Enum class used for returning Predicates which can be used with JPA Specification class in order to query the databases.
+ * Each enum is built using a FilterRequest object.
+ * See the FilterRequest class in the 'search' package.
+ */
+
 @Slf4j
 public enum Operator {
 
