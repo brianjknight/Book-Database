@@ -30,8 +30,10 @@ public class SearchSpecification<T> implements Specification<T> {
 
     @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+        // Initializes a predicate where true==true in which all items of the search are returned.
         Predicate predicate = cb.equal(cb.literal(Boolean.TRUE), Boolean.TRUE);
 
+        // A conjunction is added to the existing predicate for each FilterRequest within the SearchRequest.
         for (FilterRequest filter : this.request.getFilters()) {
             log.info("Filter: {} {} {}", filter.getKey(), filter.getOperator().toString(), filter.getValue());
             predicate = filter.getOperator().build(root, cb, filter, predicate);
