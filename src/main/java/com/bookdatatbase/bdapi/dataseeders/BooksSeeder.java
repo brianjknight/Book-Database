@@ -24,7 +24,7 @@ import java.util.zip.GZIPInputStream;
  *      skipping Books that do not have at least 1,000 ratings.
  */
 
-@Component
+//@Component
 public class BooksSeeder implements CommandLineRunner {
 
     @Autowired

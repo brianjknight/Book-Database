@@ -23,7 +23,7 @@ import java.util.zip.GZIPInputStream;
  *
  */
 
-@Component
+//@Component
 public class BookGenreSeeder implements CommandLineRunner {
 
     @Autowired
