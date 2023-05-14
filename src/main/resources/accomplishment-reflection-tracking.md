@@ -459,11 +459,16 @@ Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
 * 5/4/23
   * Add Javadocs to all the classes minus a few that already had them.
 
+How do I return an object showing the joined data from Book, BookGenre, & Author???
+* Right now BookBookGenre works but only returns a Page<Book>
+* Maybe create a new model of BookData or BookAuthorGenre that combines all into an object to be returned.
+  * Not sure this works since it is still calling bookRepo.findAll()
+  * So if using a Join in the specification on a repo, how do I include return all items from the associated repos?
 
 Use the knowledge to try joining the 3 tables Book, BookGenre, and Author in SearchSpecification
  
 
-Up next figure out how to use the list of values in the SearchRequest to match bookGenres on multiple LIKE 
+Up next figure out how to use the list of values in the SearchRequest to match bookGenres on multiple LIKE   
 Can I use generics like in SearchSpecification?
 
 All of this will eventually need done for Author as well. 
