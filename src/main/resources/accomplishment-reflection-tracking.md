@@ -459,11 +459,33 @@ Week of 4/9/23-4/15/23 spend updating Crime-Database-Project
 * 5/4/23
   * Add Javadocs to all the classes minus a few that already had them.
 
-How do I return an object showing the joined data from Book, BookGenre, & Author???
-* Right now BookBookGenre works but only returns a Page<Book>
-* Maybe create a new model of BookData or BookAuthorGenre that combines all into an object to be returned.
-  * Not sure this works since it is still calling bookRepo.findAll()
-  * So if using a Join in the specification on a repo, how do I include return all items from the associated repos?
+### Week 9
+* Focused on job search and interviews including a coding challenge.
+
+### Week 10
+* 5/14/23
+    * Work on updating SearchSpecification to join all 3 tables; Book, BookGenre, & Authors.
+      * Rather than Join tables in the SearchSpecification,
+        I think I need to add the Join clauses in each of the Operator enums,
+        but how do I accomplish this without losing generics?
+      * if a key "author" or "bookGenre" is present, then create the join
+      * so the next question is do I loose generics in the Operator enums?
+      * Realizing there might be issues joining Book & Author that have same attribute names. I need to join those 2 tables first then revisit joining all 3.
+    * Join Book & Author tables
+      * ISSUE: if I call join.get("averageRating"), how does JPA know with attribute to get?
+      * join.get() get the attribute of the joined entity versus root.get() which would get the attribute of the root.
+      
+* 5/15/23
+  * Testing BookAuthorSpecification and endpoint getting unexpected results.
+  * SQL statement in Postgres returns more results than API call in Postman
+    * Figured out this is related how the database is seeded. 
+      For example, in the Authors tables, author_id 15149526 for Trevor Noah has 2 rows. 
+      One is populated with data but the other null columns.
+      There are 2 versions of the book in Books table with the same author but different Authors created only one of which has Author data populated.
+    * ![](images/book-search-author-id-trevor-noad.png)
+    * ![](images/author-search-author-id-trevor-noad.png)
+
+
 
 Use the knowledge to try joining the 3 tables Book, BookGenre, and Author in SearchSpecification
  
