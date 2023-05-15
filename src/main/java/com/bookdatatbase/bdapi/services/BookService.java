@@ -3,6 +3,7 @@ package com.bookdatatbase.bdapi.services;
 import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.exceptions.BookNotFoundException;
 import com.bookdatatbase.bdapi.repositories.BookRepository;
+import com.bookdatatbase.bdapi.search.BookAuthorSpecification;
 import com.bookdatatbase.bdapi.search.BookBookGenreSpecification;
 import com.bookdatatbase.bdapi.search.SearchRequest;
 import com.bookdatatbase.bdapi.search.SearchSpecification;
@@ -80,6 +81,13 @@ public class BookService {
         Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
         return ResponseEntity.ok(bookRepository.findAll(specification, pageable));
     }
+
+    public ResponseEntity<Page<Book>> findBooksWithAuthorAverageRating(SearchRequest request) {
+        Specification<Book> specification = new BookAuthorSpecification<>(request);
+        Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
+        return ResponseEntity.ok(bookRepository.findAll(specification, pageable));
+    }
+
 
     /**
      * Persists a Book item to the database.
