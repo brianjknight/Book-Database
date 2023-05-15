@@ -1,14 +1,18 @@
 package com.bookdatatbase.bdapi.enums;
 
+import com.bookdatatbase.bdapi.entities.Author;
+import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.search.FilterRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Enum class used for returning Predicates which can be used with JPA Specification class in order to query the databases.
@@ -57,7 +61,16 @@ public enum Operator {
           if (request.getFieldType() != FieldType.CHAR && request.getFieldType() != FieldType.BOOLEAN) {
               Number num = (Number) value;
               Expression<Number> key = root.get(request.getKey());
-              return cb.and(cb.and(cb.gt(key, num), predicate));
+
+              if (request.getEntity().toLowerCase().equals("author")) {
+                Join<Book, Author> bookAuthorJoin = root.join("author");
+                predicate = cb.and(cb.gt(bookAuthorJoin.get(request.getKey()), num), predicate);
+              }
+              else {
+                  predicate = cb.and(cb.gt(key, num), predicate);
+              }
+
+              return predicate;
           }
 
           log.info("Can not use between for {} field type.", request.getFieldType());
