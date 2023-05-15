@@ -4,6 +4,7 @@ import com.bookdatatbase.bdapi.entities.Book;
 import com.bookdatatbase.bdapi.search.SearchRequest;
 import com.bookdatatbase.bdapi.services.BookService;
 
+import net.bytebuddy.build.RepeatedAnnotationPlugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -90,6 +91,11 @@ public class BookController {
     @PostMapping(value = "/booksWithGenres")
     public ResponseEntity<Page<Book>> findBooksWithGenresLike(@RequestBody SearchRequest request) {
         return  bookService.findBooksWithGenresLike(request);
+    }
+
+    @PostMapping(value = "/bookWithAuthorAverageRating")
+    public ResponseEntity<Page<Book>> findBooksWithAuthorAverageRating(@RequestBody SearchRequest request) {
+        return bookService.findBooksWithAuthorAverageRating(request);
     }
 
     /**
