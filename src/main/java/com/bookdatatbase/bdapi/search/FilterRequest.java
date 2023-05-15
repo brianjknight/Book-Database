@@ -32,6 +32,8 @@ public class FilterRequest implements Serializable {
 
     private String key;
 
+    private String entity;
+
     private Operator operator;
 
     private FieldType fieldType;
